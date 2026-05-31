@@ -1,8 +1,8 @@
 flowchart TD
-    Alert["Alert or client report"] --> Confirm["Confirm from second source"]
+    Alert["Alert or monitoring report"] --> Confirm["Confirm from second source"]
     Confirm --> Scope["Identify affected service"]
     Scope --> Change["Check recent changes"]
-    Change --> Impact["Estimate client impact"]
+    Change --> Impact["Estimate user impact"]
     Impact --> Communicate["Send short status update"]
     Communicate --> Decide["Rollback needed?"]
     Decide -->|Yes| Rollback["Apply documented rollback"]

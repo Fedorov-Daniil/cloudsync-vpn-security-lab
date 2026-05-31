@@ -1,18 +1,18 @@
 # CloudSync SafeOps Monthly Health Report
 
-## Client
+## Project
 
-Example Customer
+Example Project
 
 ## Period
 
 2026-05-01 to 2026-05-31
 
-## Overall score
+## Overall Score
 
 **86/100 - Healthy with small follow-up actions**
 
-## Uptime summary
+## Uptime Summary
 
 | Service | Target | Status | Notes |
 | --- | --- | --- | --- |
@@ -55,7 +55,7 @@ Example Customer
 - Add a monthly alert-channel test.
 - Keep DNS record inventory updated after every change.
 
-## Next actions
+## Next Actions
 
 1. Confirm off-server backup retention.
 2. Schedule restore test.

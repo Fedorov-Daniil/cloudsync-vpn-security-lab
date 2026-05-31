@@ -1,33 +1,42 @@
-# CloudSync SafeOps Documentation Index
+# Documentation Index
 
-Start here when reviewing the MVP as a portfolio project or client-ready service template.
+CloudSync SafeOps is a sanitized cybersecurity and DevOps operations lab. These docs explain the lab architecture, safety mindset, monitoring strategy, backup readiness, rollback planning, and incident response workflow.
 
-## Product and offer
+## Start Here
 
-- [Product](PRODUCT.md)
-- [Service offer](SERVICE-OFFER.md)
-- [Pricing](PRICING.md)
-- [Client onboarding](CLIENT-ONBOARDING.md)
-- [FAQ](FAQ.md)
-
-## Technical design
-
+- [Lab overview](LAB-OVERVIEW.md)
+- [Portfolio scope](PORTFOLIO-SCOPE.md)
 - [Architecture](ARCHITECTURE.md)
+- [Case study](../portfolio/CASE-STUDY.md)
+- [One-page portfolio summary](../portfolio/ONE-PAGE-PITCH.md)
+
+## Operations Topics
+
 - [DNS security](DNS-SECURITY.md)
 - [Monitoring plan](MONITORING-PLAN.md)
 - [Backup strategy](BACKUP-STRATEGY.md)
 - [Incident response](INCIDENT-RESPONSE.md)
+- [Safe rollback](SAFE-ROLLBACK.md)
+- [Lab checklist](LAB-CHECKLIST.md)
 
-## Planning
+## Portfolio Materials
 
+- [Service concept](SERVICE-CONCEPT.md)
 - [Roadmap](ROADMAP.md)
-- [Public case study](../portfolio/CASE-STUDY.md)
-- [One-page pitch](../portfolio/ONE-PAGE-PITCH.md)
+- [FAQ](FAQ.md)
+- [Portfolio landing page](../landing/index.html)
+- [Docs landing page](index.html)
 
-## Demo deliverables
+## Sanitized Examples
 
 - [Monthly report example](../examples/monthly-report.example.md)
-- [Monitoring targets example](../examples/monitoring-targets.example.yml)
-- [Client onboarding form example](../examples/client-onboarding-form.example.md)
 - [Incident report example](../examples/incident-report.example.md)
-- [Static landing page](../landing/index.html)
+- [Monitoring targets example](../examples/monitoring-targets.example.yml)
+- [Lab intake form example](../examples/lab-intake-form.example.md)
+- [Architecture diagram](../diagrams/architecture.mmd)
+- [Monitoring flow diagram](../diagrams/monitoring-flow.mmd)
+- [Incident response flow diagram](../diagrams/incident-response-flow.mmd)
+
+## Safety Note
+
+All examples use placeholders only: `example.com`, `safeops.example.com`, `doh.example.com`, `monitor.example.com`, `203.0.113.10`, and `REDACTED`.

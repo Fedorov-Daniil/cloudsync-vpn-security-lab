@@ -1,43 +1,35 @@
 # Backup Strategy
 
-CloudSync SafeOps treats backups as a readiness process, not a file stored in Git.
+This lab treats backups as an operational readiness topic. The public repository documents the process, but it never stores backup files or live exports.
 
-## Backup layers
+## Backup Layers
 
-- **Local backups:** quick recovery from small configuration mistakes.
-- **Encrypted off-server backups:** resilience against host loss or account issues.
-- **Retention policy:** enough history to recover from delayed discovery of mistakes.
-- **Restore tests:** periodic proof that backups are usable.
-- **Checksum verification:** confidence that backup files were not corrupted.
+- **Local copy:** fast recovery from small mistakes.
+- **Off-server copy:** resilience if the host is unavailable.
+- **Retention:** enough history to recover from delayed discovery.
+- **Restore test:** proof that a backup can actually be used.
+- **Integrity check:** confidence that backup data was not corrupted.
 
-## Suggested retention
+## Restore Readiness Checklist
 
-| Backup type | Example retention | Notes |
-| --- | --- | --- |
-| Daily configuration backup | 7-14 days | Small files only |
-| Weekly off-server backup | 4-8 weeks | Encrypted before transfer |
-| Monthly archive | 3-6 months | Optional for higher plans |
-
-## Restore readiness checklist
-
-- Backup location is known.
-- Backup encryption method is documented outside public Git.
-- Restore owner is assigned.
-- Restore procedure has been tested on an isolated environment.
+- Backup location is known outside the public repo.
+- Retention policy is documented.
+- Restore owner is defined in the scenario.
+- Restore process has been tested in an isolated environment.
 - Last successful backup date is recorded.
-- Checksums or integrity checks are available.
+- Integrity verification is available.
 
-## What never goes to GitHub
+## What Never Goes to GitHub
 
 - Backup archives.
-- Database dumps.
-- Private keys.
-- Real client records.
+- Database exports.
+- Non-public cryptographic material.
+- Personal or user records.
 - Raw access logs.
 - Environment files.
-- Production configuration exports.
+- Live production configuration.
 
-## Monthly report fields
+## Monthly Report Fields
 
 - Last backup date.
 - Off-server copy status.

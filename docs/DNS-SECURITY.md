@@ -1,43 +1,34 @@
 # DNS Security
 
-DNS security in CloudSync SafeOps is about reducing common exposure, improving visibility, and documenting safe resolver behavior for small projects.
+This lab uses DNS security as a learning topic: how DNS records are documented, how resolver behavior can be checked, and how conservative filtering can reduce common exposure.
 
 ## Goals
 
-- Reduce access to known phishing and malware domains.
-- Encourage safer DNS resolver choices.
-- Check DNS response behavior for important domains.
-- Document DNS changes before they affect users.
-- Keep DNS troubleshooting understandable for non-specialists.
+- Understand DNS record ownership and expected answers.
+- Practice documenting DNS changes before rollout.
+- Learn where DNS filtering can help and where it cannot.
+- Check DoH endpoint behavior with placeholder targets.
+- Avoid overclaiming security outcomes.
 
-## Recommended checks
+## Example Inventory
 
-- Domain resolves to expected placeholder records in examples.
-- DNS response is consistent across chosen resolvers.
-- Important records are documented: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, and relevant verification records.
-- TTL values are known before planned changes.
-- DoH endpoint behavior is checked where applicable.
-- Filtering recommendations are conservative and reviewed for false positives.
-
-## Example DNS inventory
-
-| Item | Example value | Purpose |
+| Item | Placeholder | Purpose |
 | --- | --- | --- |
-| Primary domain | `example.com` | Client website |
-| Operations domain | `safeops.example.com` | Demo status/reporting endpoint |
-| DNS security endpoint | `doh.example.com` | DoH behavior check |
-| Placeholder IP | `203.0.113.10` | Documentation-only address |
+| Primary domain | `example.com` | Demo website |
+| Monitoring domain | `monitor.example.com` | Demo monitoring target |
+| DoH endpoint | `doh.example.com` | DNS security concept check |
+| Documentation IP | `203.0.113.10` | Public documentation placeholder |
 
-## Safe DNS change process
+## Safe DNS Change Process
 
-1. Capture current records.
-2. Confirm intended record values.
-3. Lower TTL before planned changes when appropriate.
-4. Apply one small change at a time.
-5. Validate resolution from multiple networks or resolvers.
-6. Watch monitoring after the change.
-7. Document the result and rollback path.
+1. Capture the current expected records.
+2. Define the intended change.
+3. Check TTL and propagation expectations.
+4. Apply one small change in the lab scenario.
+5. Validate resolution from more than one resolver.
+6. Monitor behavior after the change.
+7. Document the result and rollback notes.
 
 ## Limitations
 
-DNS filtering reduces risk but does not eliminate phishing, malware, account takeover, compromised websites, or endpoint security issues. It is one layer in a broader operations routine.
+DNS filtering can reduce exposure to known malicious or unwanted domains, but it does not replace endpoint security, user training, secure application design, or incident response.

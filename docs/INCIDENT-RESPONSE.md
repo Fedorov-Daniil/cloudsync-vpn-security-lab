@@ -1,74 +1,64 @@
 # Incident Response
 
-CloudSync SafeOps uses small, repeatable incident workflows. The goal is to detect, communicate, restore, and learn without making the situation worse.
+Incident response in this lab is intentionally simple: confirm, scope, communicate, recover, document, and improve.
 
-## General workflow
+## General Workflow
 
 1. Confirm the alert.
 2. Identify the affected service.
 3. Check recent changes.
-4. Estimate client impact.
-5. Communicate status if impact is visible.
-6. Apply the safest recovery step.
-7. Roll back the latest relevant change when appropriate.
+4. Estimate user impact.
+5. Choose the safest recovery step.
+6. Roll back the latest relevant change when appropriate.
+7. Validate monitoring.
 8. Document the incident and prevention action.
 
-## Website down
+## Common Scenarios
+
+### Website Down
 
 - Check HTTP status and TCP 443.
 - Confirm DNS still resolves.
 - Check certificate validity.
-- Review hosting or container health.
+- Review service health indicators.
 - Use rollback notes if a recent change caused impact.
 
-## DNS broken
+### DNS Issue
 
-- Compare expected DNS records with current answers.
-- Check TTL and propagation status.
-- Confirm registrar or DNS provider status.
-- Roll back the last DNS record change if needed.
+- Compare current DNS answers with expected records.
+- Check TTL and propagation assumptions.
+- Confirm provider status where applicable.
+- Roll back the last DNS record change in the lab scenario if needed.
 
-## Certificate expired
+### Certificate Expiry
 
-- Confirm expiry date and affected hostnames.
-- Renew or reissue through the approved provider process.
+- Confirm expiry date and affected hostname.
+- Renew through the documented process in a real environment.
 - Validate HTTPS response after renewal.
-- Add a monitoring warning threshold if missing.
+- Add or adjust warning thresholds.
 
-## Disk full
+### Disk Pressure
 
-- Confirm disk usage with read-only checks.
-- Identify growth source.
+- Use read-only checks first.
+- Identify the growth source.
 - Avoid deleting unknown data.
-- Escalate before cleanup if logs, databases, or backups are involved.
+- Document the finding and safe next action.
 
-## Backup failed
+### Backup Failure
 
 - Confirm last successful backup.
-- Check storage availability.
-- Review scheduler status.
-- Run a controlled manual backup only in the approved environment.
-- Document missed recovery point.
+- Check destination availability.
+- Record missed recovery point.
+- Schedule a restore readiness review.
 
-## Config rollout issue
+### Rollout Issue
 
-- Stop expanding the rollout.
+- Stop expanding the change.
 - Compare baseline and changed state.
 - Roll back the smallest relevant change.
 - Validate service health.
 - Capture what failed before retrying.
 
-## Client communication
-
-Use clear and calm updates:
-
-- what is affected;
-- when it started;
-- what is being checked;
-- next update time;
-- recovery result;
-- prevention action.
-
-## Incident report
+## Incident Report
 
 Use [../examples/incident-report.example.md](../examples/incident-report.example.md).

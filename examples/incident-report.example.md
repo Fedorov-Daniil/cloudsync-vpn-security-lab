@@ -25,7 +25,7 @@
 1. Confirmed the alert from a second network.
 2. Checked DNS response and TLS status.
 3. Reviewed recent change notes.
-4. Notified the client contact with a short status update.
+4. Recorded a short status update for the lab notes.
 5. Restored service after the platform recovered.
 
 ## Root cause placeholder

@@ -1,46 +1,35 @@
-# CloudSync SafeOps - One-Page Pitch
+# CloudSync SafeOps - Portfolio Summary
 
-## What is CloudSync SafeOps?
+## What Is CloudSync SafeOps?
 
-CloudSync SafeOps is a lightweight DNS security and uptime operations service for small websites, personal projects, and early-stage online businesses.
+CloudSync SafeOps is a sanitized cybersecurity and DevOps operations lab. It demonstrates safe infrastructure thinking through DNS security concepts, monitoring, certificate checks, backup readiness, rollback planning, and incident response.
 
-It helps owners understand whether their site is reachable, certificates are healthy, DNS is sane, backups are ready, and incident response steps are documented.
+## Who Is It For?
 
-## Who is it for?
+This repository is written for portfolio reviewers, future college applications, recruiters, and technical readers who want to understand how I approach infrastructure operations.
 
-- Small businesses with one to three domains.
-- Freelancers and local service providers.
-- Personal brands and portfolio sites.
-- Small web apps preparing for first users.
-- Projects that need practical operations without enterprise complexity.
+## What It Includes
 
-## What it includes
-
-- Uptime monitoring plan.
-- SSL/TLS certificate expiry checks.
-- DNS security recommendations.
-- Backup readiness checklist.
-- Incident response checklist.
-- Monthly health report.
-- Optional operational runbooks for higher plans.
-
-## Why it matters
-
-Most small projects do not need a large security program on day one. They do need basic visibility, clear alerts, and a recovery plan before something breaks.
-
-CloudSync SafeOps reduces risk, improves visibility, helps detect failures faster, and supports safer recovery.
-
-## Demo deliverables
-
+- Clean README and documentation index.
+- Architecture and workflow diagrams.
+- Monitoring plan and example targets.
+- Backup readiness strategy.
+- Incident response runbook.
 - Example monthly report.
-- Monitoring targets template.
-- Client onboarding form.
-- Incident report template.
-- Mermaid architecture diagrams.
-- Static landing page.
+- Static portfolio landing page.
 
-## Contact placeholder
+## Why It Matters
 
-Contact: `REDACTED`
+Security and DevOps work require more than tools. They require safe habits: documenting changes, checking assumptions, preparing rollback paths, and communicating clearly.
 
-Website: `safeops.example.com`
+## Demo Deliverables
+
+- [Monthly report example](../examples/monthly-report.example.md)
+- [Incident report example](../examples/incident-report.example.md)
+- [Monitoring targets example](../examples/monitoring-targets.example.yml)
+- [Architecture diagram](../diagrams/architecture.mmd)
+- [Roadmap](../docs/ROADMAP.md)
+
+## Contact
+
+Available on request.

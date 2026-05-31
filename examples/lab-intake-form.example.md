@@ -1,15 +1,15 @@
-# Client Onboarding Form
+# Lab Intake Form
 
-## Customer
+## Project
 
-- Customer name: Example Customer
-- Client ID: `customer-example-001`
-- Contact person: `REDACTED`
+- Project name: Example Project
+- Project ID: `lab-example-001`
+- Contact placeholder: `REDACTED`
 
 ## Domains
 
 - Primary domain: `example.com`
-- Additional domains: `customer.example`
+- Monitoring domain: `monitor.example.com`
 
 ## Services
 
@@ -19,10 +19,9 @@
 | Operations endpoint | `https://safeops.example.com/` | Medium | Demo placeholder |
 | DNS security endpoint | `https://doh.example.com/dns-query` | Medium | Optional DoH behavior check |
 
-## Contact
+## Contact Placeholder
 
 - Primary contact: `REDACTED`
-- Billing/contact email: `REDACTED`
 - Technical contact: `REDACTED`
 
 ## Alert channel
@@ -46,4 +45,4 @@
 ## Notes
 
 - All values in this example are placeholders.
-- Client approval is required before any production change.
+- Real production changes are out of scope for this public lab.

@@ -4,11 +4,11 @@ Thanks for improving CloudSync SafeOps. This repository is public-facing and san
 
 ## Contribution checklist
 
-- Use placeholders only: `example.com`, `customer.example`, `safeops.example.com`, `doh.example.com`, `203.0.113.10`, or `REDACTED`.
+- Use placeholders only: `example.com`, `safeops.example.com`, `doh.example.com`, `monitor.example.com`, `203.0.113.10`, or `REDACTED`.
 - Keep examples read-only and non-destructive.
-- Do not add real logs, private configuration, credentials, backup files, database exports, or customer material.
+- Do not add real logs, private configuration, credentials, backup files, database exports, or personal data.
 - Keep language professional and operations-focused.
-- Avoid abuse-oriented positioning. The project is about DNS security, uptime, backup readiness, and incident response.
+- Avoid sales-oriented or abuse-oriented positioning. The project is about a cybersecurity and DevOps learning lab.
 
 ## Documentation style
 

@@ -1,32 +1,33 @@
 # Architecture
 
-CloudSync SafeOps is designed as a lightweight operations layer around a small public service. It focuses on visibility, safer change handling, and clear client communication.
+CloudSync SafeOps models a small production-like environment without publishing live configuration. The architecture is intentionally generic so it can be reviewed safely in a public portfolio.
 
 ## Components
 
-- **Client website or service:** the public-facing endpoint, represented by `example.com`.
-- **DNS provider:** authoritative DNS and records for the domain.
-- **DNS security layer:** optional filtering and DoH behavior checks, represented by `doh.example.com`.
-- **Monitoring system:** uptime, TCP, HTTP, DNS, certificate, resource, container, and backup freshness checks.
-- **Backup workflow:** local and encrypted off-server backup readiness tracking.
-- **Incident workflow:** response checklist, rollback decision, client update, and incident report.
-- **Monthly report:** recurring client-facing health summary.
+- **User:** a person accessing a demo website.
+- **Gateway:** a generic entry point for the lab service.
+- **DNS provider:** placeholder records for `example.com` and `monitor.example.com`.
+- **DNS security layer:** conceptual filtering and DoH checks using `doh.example.com`.
+- **Monitoring system:** uptime, TCP, HTTP, DNS, TLS, resource, and backup freshness checks.
+- **Backup workflow:** readiness tracking, retention notes, and restore-test planning.
+- **Documentation workflow:** runbooks, diagrams, examples, and monthly report templates.
 
-## Data flow
+## Data Flow
 
-1. The client shares domains, service URLs, alert contacts, and backup status.
-2. SafeOps defines monitoring targets and the monthly report baseline.
-3. Monitoring checks run against public-safe endpoints and service health signals.
-4. Backup readiness is reviewed without storing backup archives in Git.
-5. Incidents are handled with a documented workflow.
-6. The monthly report summarizes uptime, incidents, certificate status, DNS observations, backup readiness, recommendations, and next actions.
+1. A user reaches `example.com`.
+2. DNS records resolve to the placeholder address `203.0.113.10`.
+3. Monitoring checks track HTTP status, TCP reachability, DNS response, and certificate expiry.
+4. Backup readiness is reviewed through a marker or documented evidence, not through stored archives.
+5. Incidents are recorded in a sanitized report template.
+6. Lessons learned are added back into documentation.
 
-## Safety boundaries
+## Safety Boundaries
 
-- Public repo contains placeholders and templates only.
-- No private keys, raw logs, customer records, or live production configuration.
+- Public docs use placeholders only.
+- No live production values are stored in GitHub.
 - Example scripts are read-only and non-destructive.
-- Rollout procedures require baseline, backup confirmation, validation, and rollback notes.
+- Rollback notes are prepared before risky changes.
+- Monitoring is framed as visibility, not a guarantee.
 
 ## Diagram
 

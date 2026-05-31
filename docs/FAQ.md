@@ -1,25 +1,25 @@
 # FAQ
 
-## Is CloudSync SafeOps a security product?
+## Is this a sales project?
 
-It is a lightweight operations service template. It focuses on DNS security recommendations, uptime monitoring, certificate checks, backup readiness, incident response, and monthly reporting.
+No. This repository is a sanitized cybersecurity and DevOps operations lab. It is not a public sales page and does not include subscription flows.
 
-## Does it guarantee full protection?
+## What is the main purpose?
 
-No. It reduces risk and improves visibility, but it does not guarantee full protection or uninterrupted availability.
+The purpose is to demonstrate how I practice safe infrastructure operations: monitoring, DNS security concepts, certificate checks, backup readiness, rollback planning, incident response, and documentation hygiene.
 
-## Is this only for technical clients?
+## Does it contain real infrastructure data?
 
-No. The reports are designed to be readable by small business owners while still being useful for technical review.
+No. The public repository uses placeholders only.
 
-## What access is required?
+## Does it guarantee full security?
 
-The MVP can start with public checks only. Deeper work may require approved access to monitoring dashboards, DNS provider settings, hosting metrics, or backup status.
+No. Monitoring and DNS security concepts improve visibility and reduce some risks, but they do not guarantee complete protection.
 
-## Are real customer values stored in this repository?
+## Can someone run the scripts?
 
-No. This public repository uses placeholders only.
+The example scripts are read-only and use placeholder targets by default. They are meant as safe learning examples, not production automation.
 
-## Can this be used for first clients?
+## What should reviewers look at first?
 
-Yes, as a starting workflow. Client-specific scope, permission, legal terms, and data handling rules should be agreed before paid work begins.
+Start with the README, [architecture](ARCHITECTURE.md), [monitoring plan](MONITORING-PLAN.md), [backup strategy](BACKUP-STRATEGY.md), [incident response](INCIDENT-RESPONSE.md), and [case study](../portfolio/CASE-STUDY.md).

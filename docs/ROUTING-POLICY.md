@@ -1,21 +1,21 @@
-# Routing Policy
+# Routing Policy Concepts
 
-This document describes a sanitized Shadowrocket-like policy. It uses placeholder domains only.
+This document describes generic traffic-routing logic as a learning topic. It uses placeholders only and is not a production configuration.
 
-## Rule order
+## Rule Order
 
-1. Private and local networks use `DIRECT`.
-2. Trusted local or regional services use `DIRECT`.
-3. Selected remote services use `PROXY`.
-4. A final fallback catches everything else.
-5. DNS uses a DoH endpoint.
+1. Private and local networks stay local.
+2. Trusted internal services are handled explicitly.
+3. Monitoring and documentation endpoints are listed by name.
+4. A final fallback rule keeps behavior predictable.
+5. DNS behavior is documented separately.
 
 ## Example
 
 - `IP-CIDR,10.0.0.0/8,DIRECT,no-resolve`
-- `DOMAIN-SUFFIX,example-bank.local,DIRECT`
-- `DOMAIN-SUFFIX,video.example,PROXY`
+- `DOMAIN-SUFFIX,example.com,DIRECT`
+- `DOMAIN-SUFFIX,monitor.example.com,DIRECT`
 - `GEOIP,PRIVATE,DIRECT`
-- `FINAL,PROXY`
+- `FINAL,DIRECT`
 
-The point is predictable ordering and low-risk rollout, not a real production policy.
+The point is predictable routing logic and low-risk rollout, not a real production policy.

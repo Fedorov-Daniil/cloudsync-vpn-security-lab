@@ -1,43 +1,42 @@
 # Roadmap
 
-## Phase 1 - Portfolio MVP
+This roadmap is learning-focused. It describes how the lab can become clearer, more useful, and more realistic as a cybersecurity and DevOps portfolio project.
 
-- Public README and product docs.
-- Example monthly report.
-- Example monitoring targets.
-- Safe example scripts.
-- Static landing page.
-- CI checks for obvious unsafe values.
+## Phase 1 - Portfolio Foundation
 
-## Phase 2 - First test clients
+- Clean README and documentation index.
+- Sanitized examples and diagrams.
+- Safe read-only scripts.
+- CI checks for risky public values.
+- Static portfolio landing page.
 
-- Use the onboarding form with 1-3 friendly test clients.
-- Produce baseline reports.
-- Validate monthly report workflow.
-- Improve language based on client questions.
+## Phase 2 - Documentation Depth
 
-## Phase 3 - Monitoring dashboard
+- Add more architecture diagrams.
+- Improve cross-links between docs.
+- Add glossary notes for DNS, TLS, monitoring, backups, and rollback.
+- Add more generic runbooks for common failures.
 
-- Add screenshots or a demo dashboard with placeholder data.
-- Track uptime, certificate status, backup freshness, and incidents.
+## Phase 3 - Monitoring Demo
 
-## Phase 4 - Report automation
+- Add a sample status dashboard with placeholder data.
+- Include uptime, DNS response, TLS expiry, and backup readiness widgets.
+- Add screenshots or generated demo data.
 
-- Generate monthly report drafts from monitoring exports.
-- Add scoring rules and recommendations.
+## Phase 4 - Report Automation
 
-## Phase 5 - Backup readiness upgrades
+- Generate monthly report drafts from sanitized monitoring exports.
+- Add scoring rules.
+- Keep final reports human-reviewed.
 
-- Add encrypted off-server backup planning.
+## Phase 5 - Backup and Restore Evidence
+
 - Add restore-test evidence templates.
+- Add checksum examples.
+- Add retention policy examples.
 
-## Phase 6 - Public landing page
+## Phase 6 - Portfolio Polish
 
-- Prepare GitHub Pages or static hosting.
-- Add real contact details only when ready.
-
-## Phase 7 - Paid clients
-
-- Define contract scope.
-- Add client approval workflow.
-- Track operational metrics and renewal value.
+- Improve GitHub profile README.
+- Add concise project summaries.
+- Keep public pages free of sales language and live data.
