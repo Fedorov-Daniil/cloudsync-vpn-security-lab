@@ -12,7 +12,13 @@
 
 **CloudSync SafeOps** is a sanitized cybersecurity and DevOps portfolio lab demonstrating DNS security concepts, uptime monitoring, certificate checks, backup readiness, rollback planning, incident response, and safe production-change practices.
 
-This repository is not a public VPN offer. It is a clean homelab-style operations case study built to show how I document infrastructure, think about safety, and practice real-world maintenance workflows without exposing live systems or private data.
+This repository is not a public service offer. It is a clean homelab-style operations case study built to show how I document infrastructure, think about safety, and practice real-world maintenance workflows without exposing live systems or private data.
+
+## Live Portfolio Page
+
+GitHub Pages: [https://fedorov-daniil.github.io/cloudsync-vpn-security-lab/](https://fedorov-daniil.github.io/cloudsync-vpn-security-lab/)
+
+The published site source is the [`/docs`](docs/) folder. It presents the lab as a cybersecurity and DevOps portfolio page with sanitized examples only.
 
 ## What This Project Demonstrates
 

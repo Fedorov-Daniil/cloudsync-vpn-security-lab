@@ -4,11 +4,13 @@ CloudSync SafeOps is a sanitized cybersecurity and DevOps operations lab. These 
 
 ## Start Here
 
+- [Live portfolio page](https://fedorov-daniil.github.io/cloudsync-vpn-security-lab/)
+- [Docs landing page](index.html)
 - [Lab overview](LAB-OVERVIEW.md)
 - [Portfolio scope](PORTFOLIO-SCOPE.md)
 - [Architecture](ARCHITECTURE.md)
-- [Case study](../portfolio/CASE-STUDY.md)
-- [One-page portfolio summary](../portfolio/ONE-PAGE-PITCH.md)
+- [Case study](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/portfolio/CASE-STUDY.md)
+- [One-page portfolio summary](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/portfolio/ONE-PAGE-PITCH.md)
 
 ## Operations Topics
 
@@ -24,18 +26,18 @@ CloudSync SafeOps is a sanitized cybersecurity and DevOps operations lab. These 
 - [Service concept](SERVICE-CONCEPT.md)
 - [Roadmap](ROADMAP.md)
 - [FAQ](FAQ.md)
-- [Portfolio landing page](../landing/index.html)
+- [Portfolio landing page source](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/tree/main/landing)
 - [Docs landing page](index.html)
 
 ## Sanitized Examples
 
-- [Monthly report example](../examples/monthly-report.example.md)
-- [Incident report example](../examples/incident-report.example.md)
-- [Monitoring targets example](../examples/monitoring-targets.example.yml)
-- [Lab intake form example](../examples/lab-intake-form.example.md)
-- [Architecture diagram](../diagrams/architecture.mmd)
-- [Monitoring flow diagram](../diagrams/monitoring-flow.mmd)
-- [Incident response flow diagram](../diagrams/incident-response-flow.mmd)
+- [Monthly report example](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/examples/monthly-report.example.md)
+- [Incident report example](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/examples/incident-report.example.md)
+- [Monitoring targets example](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/examples/monitoring-targets.example.yml)
+- [Lab intake form example](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/examples/lab-intake-form.example.md)
+- [Architecture diagram](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/diagrams/architecture.mmd)
+- [Monitoring flow diagram](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/diagrams/monitoring-flow.mmd)
+- [Incident response flow diagram](https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab/blob/main/diagrams/incident-response-flow.mmd)
 
 ## Safety Note
 
