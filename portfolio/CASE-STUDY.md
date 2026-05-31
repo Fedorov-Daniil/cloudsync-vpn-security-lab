@@ -1,41 +1,79 @@
-# Case Study: Safe Operations For A VPN-Like Infrastructure Lab
+# Case Study: CloudSync SafeOps
 
-## Problem
+## Background
 
-The lab needed reliable client configuration, DNS protection, monitoring, backups, and rollback procedures without exposing sensitive operational values.
+CloudSync SafeOps started as a production-like personal lab for practicing safe operations around a small public service. The goal was to turn technical maintenance habits into a clear, client-ready MVP that could be shown in a portfolio and reused for first small-business engagements.
+
+## Challenge
+
+Small projects often have the same failure patterns:
+
+- no uptime baseline;
+- no certificate expiry warning;
+- unclear DNS ownership and change process;
+- backups that exist but are not tested;
+- incident handling that depends on memory instead of a checklist;
+- reports that are either too technical or not produced at all.
+
+The challenge was to package these needs without exposing real infrastructure data and without promising unrealistic protection.
 
 ## Constraints
 
-- Keep public documentation fully sanitized.
-- Avoid service-impacting changes without a maintenance window.
-- Test client policy changes before broad rollout.
-- Keep backup artifacts outside Git.
+- Public materials must use placeholders only.
+- No real clients, domains, IP addresses, credentials, logs, or backup files.
+- Example scripts must be read-only and safe for review.
+- Language must stay professional and business-oriented.
+- The project must be useful as both a portfolio artifact and an MVP operating system for first clients.
 
-## Solution
+## Design
 
-I built a documentation-driven operations workflow with health checks, conservative DNS filtering, controlled client policy rollout, backup planning, and rollback notes.
+The design separates client-facing deliverables from internal operations:
+
+- public README and product docs;
+- onboarding checklist and example form;
+- monitoring target template;
+- monthly report example;
+- incident report template;
+- backup readiness strategy;
+- Mermaid diagrams;
+- static landing page;
+- CI checks for obvious unsafe values.
+
+## Implementation
+
+The MVP adds a structured product layer around DNS security, uptime monitoring, SSL checks, backup readiness, incident response, and monthly reporting. It uses generic targets such as `example.com`, `doh.example.com`, and `203.0.113.10`.
+
+The static landing page presents the service in plain language and avoids tracking scripts. The examples show what a client could receive after onboarding.
 
 ## Safety controls
 
-- Backup before changes.
-- Syntax validation.
-- One-client canary testing.
-- Health checks after each stage.
-- Clear rollback commands.
-- Git hygiene for public documentation.
+- Public-safe placeholders across documentation and scripts.
+- No real production exports.
+- No private keys, credentials, database dumps, backup archives, raw access logs, or client records.
+- Read-only example scripts.
+- CI workflows for markdown presence and obvious unsafe strings.
+- Clear disclaimer that the service reduces risk but does not guarantee full protection.
 
 ## Results
 
-The project demonstrates how to manage infrastructure changes carefully, document operational decisions, and separate public portfolio material from real production data.
+- Portfolio-ready project structure.
+- Clear offer with Basic, Standard, and Pro packages.
+- Client onboarding workflow.
+- Monthly report format suitable for first test clients.
+- Safer public presentation of operational skills.
+- Internal path for future automation and dashboard work.
 
 ## Lessons learned
 
-- Strong operations is mostly discipline: small changes, verification, and rollback.
-- DNS filtering must be conservative because overblocking breaks real apps.
-- Public portfolios should show process, not sensitive infrastructure values.
+- Operational maturity is easier to sell when it is explained through outcomes: fewer surprises, faster detection, clearer recovery.
+- Small clients need plain reports more than complex dashboards at the beginning.
+- Sanitization is part of product quality, not a final cleanup step.
+- A strong MVP can be documentation-first if it creates trust and repeatability.
 
-## Next steps
+## Future improvements
 
-- Add automated documentation checks.
-- Add sanitized diagrams.
-- Add more generic runbooks for certificate and DNS incidents.
+- Add report automation from monitoring exports.
+- Build a demo dashboard with placeholder data.
+- Add restore-test evidence templates.
+- Add optional alerting integrations.
+- Publish the landing page when real contact details are ready.

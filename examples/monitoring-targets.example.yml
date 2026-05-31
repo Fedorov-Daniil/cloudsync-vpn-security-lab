@@ -1,0 +1,43 @@
+customer: Example Customer
+period: 2026-05
+contacts:
+  primary: REDACTED
+  alert_channel: REDACTED
+critical_hours:
+  timezone: Europe/Moscow
+  window: "09:00-21:00"
+targets:
+  - name: Website HTTPS
+    type: http
+    url: https://example.com/
+    expected_status: 200
+    interval_seconds: 60
+  - name: HTTPS TCP
+    type: tcp
+    host: example.com
+    port: 443
+    interval_seconds: 60
+  - name: DNS Response
+    type: dns
+    host: example.com
+    expected_answer: 203.0.113.10
+    interval_seconds: 300
+  - name: DoH Endpoint Behavior
+    type: http
+    url: https://doh.example.com/dns-query
+    expected_status: 405
+    interval_seconds: 300
+  - name: Certificate Expiry
+    type: tls
+    host: example.com
+    port: 443
+    warn_days: 30
+    critical_days: 7
+  - name: Backup Freshness
+    type: backup_marker
+    marker: REDACTED
+    warn_hours: 36
+    critical_hours: 72
+reporting:
+  monthly_report_day: 30
+  include_recommendations: true

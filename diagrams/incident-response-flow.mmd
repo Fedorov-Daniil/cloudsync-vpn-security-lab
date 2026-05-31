@@ -1,0 +1,13 @@
+flowchart TD
+    Alert["Alert or client report"] --> Confirm["Confirm from second source"]
+    Confirm --> Scope["Identify affected service"]
+    Scope --> Change["Check recent changes"]
+    Change --> Impact["Estimate client impact"]
+    Impact --> Communicate["Send short status update"]
+    Communicate --> Decide["Rollback needed?"]
+    Decide -->|Yes| Rollback["Apply documented rollback"]
+    Decide -->|No| Fix["Apply safest recovery step"]
+    Rollback --> Validate["Validate monitoring"]
+    Fix --> Validate
+    Validate --> Report["Write incident report"]
+    Report --> Prevent["Add prevention action"]

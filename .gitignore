@@ -27,7 +27,7 @@ config
 *.log
 *.log.*
 backups/
-secrets/
+sensitive/
 private/
 tmp/
 .cache/

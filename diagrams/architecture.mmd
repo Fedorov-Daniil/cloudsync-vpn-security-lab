@@ -1,0 +1,14 @@
+flowchart LR
+    Client["Client / User"] --> DNS["DNS Provider"]
+    DNS --> Website["Website: example.com"]
+    Client --> Resolver["DNS Security Layer"]
+    Resolver --> DoH["DoH Endpoint: doh.example.com"]
+    Monitor["Monitoring System"] --> Website
+    Monitor --> DNS
+    Monitor --> DoH
+    Monitor --> Cert["SSL Certificate Checks"]
+    Monitor --> Backup["Backup Freshness Signal"]
+    Backup --> Report["Monthly Health Report"]
+    Cert --> Report
+    Website --> Report
+    Incident["Incident Response Workflow"] --> Report

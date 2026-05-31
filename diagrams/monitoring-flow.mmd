@@ -1,0 +1,16 @@
+flowchart TD
+    Schedule["Scheduled checks"] --> Uptime["HTTP and TCP uptime"]
+    Schedule --> DNS["DNS response check"]
+    Schedule --> TLS["SSL expiry check"]
+    Schedule --> Backup["Backup freshness check"]
+    Schedule --> Resources["Disk, RAM, container health"]
+    Uptime --> Evaluate["Evaluate status"]
+    DNS --> Evaluate
+    TLS --> Evaluate
+    Backup --> Evaluate
+    Resources --> Evaluate
+    Evaluate -->|Healthy| Report["Monthly report input"]
+    Evaluate -->|Warning| Alert["Alert contact"]
+    Evaluate -->|Critical| Incident["Incident workflow"]
+    Alert --> Report
+    Incident --> Report

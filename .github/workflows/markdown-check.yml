@@ -1,0 +1,36 @@
+name: Markdown Safety Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Required files exist
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f README.md
+          test -f docs/INDEX.md
+      - name: Check for production-looking values
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          bad_values=(
+            'cloudsync''net'
+            '78.17''.34.137'
+            'BEGIN ''.*PRIVATE ''KEY'
+          )
+
+          joined="$(printf '%s\n' "${bad_values[@]}" | paste -sd '|' -)"
+
+          if grep -RInE --exclude-dir=.git --exclude='markdown-check.yml' "$joined" .; then
+            echo "Production-looking value found."
+            exit 1
+          fi
+
+          echo "Markdown safety check passed."
