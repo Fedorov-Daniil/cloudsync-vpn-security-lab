@@ -11,7 +11,7 @@ Infrastructure work can become risky when changes are undocumented, monitoring i
 ## Constraints
 
 - Use placeholders only.
-- Do not publish real domains, IP addresses, logs, subscription links, or live configuration.
+- Do not publish real domains, IP addresses, logs, live-config links, or live configuration.
 - Keep public scripts read-only and non-destructive.
 - Avoid sales language and unsafe claims.
 - Make the project understandable for recruiters, college reviewers, and technical readers.
