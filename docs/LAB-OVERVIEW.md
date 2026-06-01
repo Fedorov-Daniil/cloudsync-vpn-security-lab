@@ -19,7 +19,7 @@ The lab exists to practice realistic operations workflows without publishing liv
 
 - It does not sell or promote a VPN service.
 - It does not include live production configuration.
-- It does not include real IP addresses, domains, subscription links, logs, or personal data.
+- It does not include real IP addresses, domains, live-config links, logs, or personal data.
 - It does not claim perfect security or uninterrupted availability.
 - It does not provide instructions for illegal or abuse-oriented activity.
 

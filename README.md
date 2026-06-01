@@ -94,7 +94,7 @@ Every change in the lab is treated as something that should be reversible, obser
 - Real IP addresses.
 - Real domains.
 - Real production configs.
-- Real subscription links.
+- Real live-config links.
 - Personal or user records.
 - Credential material.
 - Raw access logs.
@@ -123,4 +123,4 @@ Every change in the lab is treated as something that should be reversible, obser
 
 ## Disclaimer
 
-This is an educational, sanitized portfolio lab. It is not a public service offer, not a managed security service, and not a guarantee of full protection. It does not include production credentials, live configuration, real subscription links, raw logs, or personal data.
+This is an educational, sanitized portfolio lab. It is not a public service offer, not a managed security service, and not a guarantee of full protection. It does not include production credentials, live configuration, real live-config links, raw logs, or personal data.

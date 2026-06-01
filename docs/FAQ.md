@@ -2,7 +2,7 @@
 
 ## Is this a sales project?
 
-No. This repository is a sanitized cybersecurity and DevOps operations lab. It is not a public sales page and does not include subscription flows.
+No. This repository is a sanitized cybersecurity and DevOps operations lab. It is not a public sales page and does not include live access flows.
 
 ## What is the main purpose?
 

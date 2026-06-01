@@ -17,7 +17,7 @@ The public repository includes:
 
 - real production configuration;
 - real domains or IP addresses;
-- subscription links;
+- live-config links;
 - credential material;
 - payment flows;
 - raw logs or personal data;

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CloudSync Royale — публичная demo showcase страница личного VPN и security homelab проекта с очищенными demo values.">
+    <title>CloudSync Royale — Public Showcase</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <canvas id="mesh-canvas" aria-hidden="true"></canvas>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="aura aura-one" aria-hidden="true"></div>
+    <div class="aura aura-two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#hero" aria-label="CloudSync Royale">
+        <span class="brand-sign">CS</span>
+        <span>CloudSync Royale</span>
+      </a>
+      <nav class="nav" aria-label="Навигация по showcase">
+        <a href="#system">Система</a>
+        <a href="#architecture">Архитектура</a>
+        <a href="#features">Фичи</a>
+        <a href="#console">Console</a>
+        <a href="#safety">Safety</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero section" id="hero">
+        <div class="wrap hero-grid">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Private Lab · Public Demo</p>
+            <h1>CloudSync Royale</h1>
+            <p class="typing-line">
+              <span data-typing="Личный VPN / security homelab: стабильность, DNS-защита, мониторинг, бэкапы и аккуратные изменения."></span>
+            </p>
+            <p class="hero-text">
+              Кинематичная витрина личного инфраструктурного проекта: очищенная схема, demo-панели,
+              безопасные placeholder-значения и визуальная история без раскрытия production-деталей.
+            </p>
+            <div class="actions">
+              <a class="btn primary" href="#system">Смотреть систему</a>
+              <a class="btn ghost" href="#architecture">Как это работает</a>
+            </div>
+            <div class="hero-badges" aria-label="Demo markers">
+              <span>Demo Values</span>
+              <span>REDACTED</span>
+              <span>Private Lab</span>
+            </div>
+          </div>
+
+          <div class="hero-orb reveal tilt-card" data-depth="0.055" aria-label="Голографический shield dashboard">
+            <div class="orb-shell">
+              <div class="orb-grid"></div>
+              <div class="orb-core">
+                <span class="shield-mark">◆</span>
+                <strong>Royale</strong>
+                <small>shield.example.com</small>
+              </div>
+              <span class="orbit orbit-a">DNS</span>
+              <span class="orbit orbit-b">VPN</span>
+              <span class="orbit orbit-c">Mon</span>
+              <span class="orbit orbit-d">Git</span>
+            </div>
+            <div class="glass-strip">
+              <span>Demo Node</span>
+              <strong>203.0.113.10</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="system">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="eyebrow">Cinematic Status</p>
+            <h2>Панель выглядит live, но показывает только demo values</h2>
+            <p>Это интерфейс-симуляция: никакие реальные telemetry, live-конфиги или production-логи не выводятся.</p>
+          </div>
+
+          <div class="dashboard reveal tilt-card">
+            <div class="dashboard-top">
+              <div>
+                <p class="panel-kicker">CloudSync Royale</p>
+                <h3>System Command Deck</h3>
+              </div>
+              <div class="live-pill"><span></span> Online</div>
+            </div>
+
+            <div class="metric-row">
+              <article class="metric">
+                <span>Uptime</span>
+                <strong><span class="counter" data-target="99.9">99.9</span>%</strong>
+                <small>Demo values only</small>
+              </article>
+              <article class="metric">
+                <span>Latency</span>
+                <strong><span id="latency">31</span> ms</strong>
+                <small>Animated fake range</small>
+              </article>
+              <article class="metric">
+                <span>Active node</span>
+                <strong>Demo Node</strong>
+                <small>node.example.com</small>
+              </article>
+              <article class="metric">
+                <span>Mode</span>
+                <strong>Sanitized</strong>
+                <small>REDACTED view</small>
+              </article>
+            </div>
+
+            <div class="status-grid">
+              <article class="status-card"><span></span><b>Core</b><em>Online</em></article>
+              <article class="status-card"><span></span><b>DNS Shield</b><em>Active</em></article>
+              <article class="status-card"><span></span><b>Routing Logic</b><em>Optimized</em></article>
+              <article class="status-card"><span></span><b>Backup Guard</b><em>Ready</em></article>
+              <article class="status-card"><span></span><b>Monitoring</b><em>Watching</em></article>
+              <article class="status-card"><span></span><b>Health</b><em>Stable</em></article>
+            </div>
+
+            <div class="pulse-panel">
+              <div class="pulse-head">
+                <span>Traffic Pulse</span>
+                <b>Demo stream</b>
+              </div>
+              <div class="pulse-graph" id="pulse-graph" aria-label="Анимированный demo-график"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="architecture">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="eyebrow">Architecture Map</p>
+            <h2>Поток показан как голографическая схема</h2>
+            <p>Схема объясняет роли компонентов, не раскрывая реальную инфраструктуру.</p>
+          </div>
+
+          <div class="flow reveal" aria-label="Device to Internet architecture flow">
+            <article class="flow-node tilt-card"><span>01</span><strong>Device</strong></article>
+            <div class="flow-line"></div>
+            <article class="flow-node tilt-card"><span>02</span><strong>Secure Client</strong></article>
+            <div class="flow-line"></div>
+            <article class="flow-node tilt-card"><span>03</span><strong>VPN Gateway</strong></article>
+            <div class="flow-line"></div>
+            <article class="flow-node tilt-card"><span>04</span><strong>DNS Shield</strong></article>
+            <div class="flow-line"></div>
+            <article class="flow-node tilt-card"><span>05</span><strong>Monitoring</strong></article>
+            <div class="flow-line"></div>
+            <article class="flow-node tilt-card"><span>06</span><strong>Internet</strong></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="represents">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="eyebrow">What This Project Represents</p>
+            <h2>Что показывает CloudSync Royale</h2>
+            <p>Формулировки намеренно остаются в зоне concept, demo, homelab и sanitized.</p>
+          </div>
+
+          <div class="card-grid compact">
+            <article class="info-card reveal tilt-card"><span>01</span><h3>Личная инфраструктура</h3><p>Homelab как мини-система с ролями, проверками и понятной логикой.</p></article>
+            <article class="info-card reveal tilt-card"><span>02</span><h3>VPN core concept</h3><p>Demo-представление gateway-слоя без live-конфигов и чувствительных деталей.</p></article>
+            <article class="info-card reveal tilt-card"><span>03</span><h3>DNS-защита</h3><p>Sanitized DNS Shield показывает идею защитного слоя на уровне архитектуры.</p></article>
+            <article class="info-card reveal tilt-card"><span>04</span><h3>Мониторинг</h3><p>Healthchecks, статусы и визуальные сигналы как привычка аккуратной эксплуатации.</p></article>
+            <article class="info-card reveal tilt-card"><span>05</span><h3>Бэкапы</h3><p>Backup readiness как часть мышления до любых изменений.</p></article>
+            <article class="info-card reveal tilt-card"><span>06</span><h3>Rollback-first подход</h3><p>Сначала точка возврата, потом изменение, проверка и спокойное восстановление.</p></article>
+            <article class="info-card reveal tilt-card"><span>07</span><h3>Документация</h3><p>Проект описан так, чтобы показать инженерную мысль без раскрытия лишнего.</p></article>
+            <article class="info-card reveal tilt-card"><span>08</span><h3>GitHub hygiene</h3><p>Публичная подача чистая: красиво, понятно, без чувствительных материалов.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="eyebrow">Feature Cards</p>
+            <h2>Премиальные акценты проекта</h2>
+          </div>
+
+          <div class="card-grid feature-grid">
+            <article class="feature-card reveal tilt-card"><span>Stability</span><h3>Stability-first</h3><p>Статусы, проверки и предсказуемое состояние важнее хаотичных экспериментов.</p></article>
+            <article class="feature-card reveal tilt-card"><span>Speed</span><h3>Speed-focused</h3><p>Витрина показывает фокус на отзывчивость и чистую сетевую модель.</p></article>
+            <article class="feature-card reveal tilt-card"><span>DNS</span><h3>DNS protection layer</h3><p>Отдельный слой DNS Shield помогает мыслить проект как систему.</p></article>
+            <article class="feature-card reveal tilt-card"><span>Route</span><h3>Safe routing logic</h3><p>Логика маршрутизации показана концептуально, без live paths.</p></article>
+            <article class="feature-card reveal tilt-card"><span>Monitor</span><h3>Monitoring mindset</h3><p>Состояние проекта должно быть видно до того, как возникает проблема.</p></article>
+            <article class="feature-card reveal tilt-card"><span>Backup</span><h3>Backup readiness</h3><p>Восстановление планируется заранее, а не после неприятного сюрприза.</p></article>
+            <article class="feature-card reveal tilt-card"><span>Rollback</span><h3>Rollback discipline</h3><p>Каждое изменение думается через обратимый путь и проверяемый результат.</p></article>
+            <article class="feature-card reveal tilt-card"><span>Public</span><h3>Clean public presentation</h3><p>Красиво показать проект можно без раскрытия реальных значений.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="console">
+        <div class="wrap console-grid">
+          <div class="section-head reveal">
+            <p class="eyebrow">Fake Live Console</p>
+            <h2>Терминал как кино, данные как demo</h2>
+            <p>Строки анимируются для ощущения живой системы, но это не реальные команды и не live output.</p>
+          </div>
+
+          <div class="terminal reveal tilt-card" aria-label="Demo console output">
+            <div class="terminal-top">
+              <span></span><span></span><span></span>
+              <b>royale-demo</b>
+            </div>
+            <div class="terminal-lines" id="terminal-lines">
+              <p data-line="healthcheck: passed"></p>
+              <p data-line="dns-shield: active"></p>
+              <p data-line="backup-guard: ready"></p>
+              <p data-line="public-secrets-scan: clean"></p>
+              <p data-line="production-values: hidden"></p>
+              <p data-line="status: demo mode"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section why-section">
+        <div class="wrap why-grid">
+          <div class="section-head reveal">
+            <p class="eyebrow">Why It Looks Serious</p>
+            <h2>Почему это выглядит как настоящий инженерный проект</h2>
+          </div>
+          <div class="reason-stack reveal">
+            <p>Это не просто “включил VPN”.</p>
+            <p>Это мини-инфраструктура с ролями и состояниями.</p>
+            <p>Есть мониторинг и контроль ресурсов.</p>
+            <p>Есть бэкапы и безопасные откаты.</p>
+            <p>Есть публичное оформление без секретов.</p>
+            <p>Есть спокойный процесс: подготовка → изменение → проверка → фиксация результата.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <p class="eyebrow">Build Story</p>
+            <h2>Timeline</h2>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-card reveal"><span>Stage 1</span><h3>Server baseline</h3><p>Базовый порядок и предсказуемое окружение.</p></article>
+            <article class="timeline-card reveal"><span>Stage 2</span><h3>VPN core</h3><p>Понятная роль gateway-слоя в homelab-модели.</p></article>
+            <article class="timeline-card reveal"><span>Stage 3</span><h3>DNS protection</h3><p>DNS Shield как отдельный защитный слой.</p></article>
+            <article class="timeline-card reveal"><span>Stage 4</span><h3>Monitoring</h3><p>Healthchecks, сигналы и наблюдаемость.</p></article>
+            <article class="timeline-card reveal"><span>Stage 5</span><h3>Backup guard</h3><p>Готовность к восстановлению до изменений.</p></article>
+            <article class="timeline-card reveal"><span>Stage 6</span><h3>GitHub portfolio</h3><p>Sanitized-документация для публичного профиля.</p></article>
+            <article class="timeline-card reveal"><span>Stage 7</span><h3>Public showcase</h3><p>Вау-витрина без реальных production-значений.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="safety">
+        <div class="wrap">
+          <div class="safety-card reveal tilt-card">
+            <p class="eyebrow">Safety Note</p>
+            <h2>Публично только то, что можно показывать</h2>
+            <p>
+              Демонстрационная страница. Реальные IP, домены, ключи, конфиги,
+              конфигурационные ссылки, данные клиентов и production-логи не публикуются.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section final-section">
+        <div class="wrap final-card reveal">
+          <p class="eyebrow">Personal Cybersecurity / DevOps Homelab</p>
+          <h2>Built as a personal cybersecurity / DevOps homelab.</h2>
+          <p>
+            CloudSync Royale — визуальная демонстрация личного инфраструктурного проекта:
+            безопасность, стабильность, DNS-защита, мониторинг и аккуратный подход к изменениям.
+          </p>
+          <a class="btn primary" href="#hero">Наверх</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>CloudSync Royale · Public Demo Showcase · example.com placeholders only</p>
+    </footer>
+  </body>
+</html>

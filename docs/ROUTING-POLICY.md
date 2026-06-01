@@ -2,7 +2,7 @@
 
 This document describes generic traffic-routing logic as a learning topic. It uses placeholders only and is not a production configuration.
 
-## Rule Order
+## Rule Sequence
 
 1. Private and local networks stay local.
 2. Trusted internal services are handled explicitly.
