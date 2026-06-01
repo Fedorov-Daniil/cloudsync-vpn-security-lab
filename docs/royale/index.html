@@ -11,9 +11,13 @@
   </head>
   <body>
     <canvas id="network-canvas" aria-hidden="true"></canvas>
+    <div class="depth-grid" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
     <div class="aura aura-one" aria-hidden="true"></div>
     <div class="aura aura-two" aria-hidden="true"></div>
+    <div class="aura aura-three" aria-hidden="true"></div>
+    <div class="light-ribbon ribbon-one" aria-hidden="true"></div>
+    <div class="light-ribbon ribbon-two" aria-hidden="true"></div>
     <div class="scroll-progress" aria-hidden="true"></div>
 
     <header class="topbar" data-elevated="false">
@@ -36,7 +40,7 @@
     <main>
       <section class="hero section" id="hero">
         <div class="wrap hero-grid">
-          <div class="hero-copy reveal" data-reveal>
+          <div class="hero-copy reveal reveal-left reveal-glow" data-reveal>
             <p class="eyebrow">Private infrastructure showcase</p>
             <h1>CloudSync Royale</h1>
             <p class="subtitle">
@@ -56,7 +60,7 @@
               <span>DNS protection</span>
               <span>Availability-focused setup</span>
             </div>
-            <div class="terminal" data-terminal data-terminal-text="public view initialized · sensitive details redacted · operations posture clean">
+            <div class="terminal reveal reveal-blur" data-reveal data-terminal data-terminal-text="public view initialized · private details redacted · operations posture clean">
               <div class="terminal-top">
                 <span></span>
                 <span></span>
@@ -66,12 +70,16 @@
             </div>
           </div>
 
-          <div class="hero-stage reveal" data-reveal data-depth="0.035" aria-label="Визуальная модель CloudSync Royale">
+          <div class="hero-stage reveal reveal-scale reveal-glow" data-reveal data-depth="0.035" aria-label="Визуальная модель CloudSync Royale">
             <div class="orbital">
               <div class="orbital-grid" aria-hidden="true"></div>
+              <div class="orbital-sheen" aria-hidden="true"></div>
               <div class="orbit orbit-one" aria-hidden="true"></div>
               <div class="orbit orbit-two" aria-hidden="true"></div>
               <div class="orbit orbit-three" aria-hidden="true"></div>
+              <div class="trail trail-one" aria-hidden="true"></div>
+              <div class="trail trail-two" aria-hidden="true"></div>
+              <div class="trail trail-three" aria-hidden="true"></div>
               <div class="core-card">
                 <span class="core-pulse" aria-hidden="true"></span>
                 <small>Core posture</small>
@@ -88,7 +96,7 @@
 
       <section class="section" id="overview">
         <div class="wrap">
-          <div class="section-head reveal" data-reveal>
+          <div class="section-head reveal reveal-left" data-reveal>
             <p class="eyebrow">Showcase layer</p>
             <h2>Публичная витрина без operational leakage</h2>
             <p>
@@ -97,7 +105,7 @@
             </p>
           </div>
 
-          <div class="cockpit reveal" data-reveal>
+          <div class="cockpit reveal reveal-clip reveal-glow" data-reveal>
             <div class="cockpit-main">
               <div class="panel-title">
                 <div>
@@ -148,7 +156,7 @@
 
       <section class="section" id="architecture">
         <div class="wrap">
-          <div class="section-head reveal" data-reveal>
+          <div class="section-head reveal reveal-right" data-reveal>
             <p class="eyebrow">Architecture</p>
             <h2>Схема ролей вместо раскрытия инфраструктуры</h2>
             <p>
@@ -157,32 +165,32 @@
             </p>
           </div>
 
-          <div class="flow reveal" data-reveal>
-            <article class="flow-node">
+          <div class="flow reveal reveal-blur" data-reveal>
+            <article class="flow-node reveal reveal-left" data-reveal>
               <span>01</span>
               <strong>Personal device</strong>
               <p>точка входа пользователя</p>
             </article>
             <div class="flow-link" aria-hidden="true"></div>
-            <article class="flow-node">
+            <article class="flow-node reveal reveal-scale" data-reveal>
               <span>02</span>
               <strong>Secure client</strong>
               <p>контролируемое подключение</p>
             </article>
             <div class="flow-link" aria-hidden="true"></div>
-            <article class="flow-node">
+            <article class="flow-node reveal reveal-blur" data-reveal>
               <span>03</span>
               <strong>Gateway role</strong>
               <p>маршрутизация без деталей</p>
             </article>
             <div class="flow-link" aria-hidden="true"></div>
-            <article class="flow-node">
+            <article class="flow-node reveal reveal-scale" data-reveal>
               <span>04</span>
               <strong>DNS protection</strong>
               <p>защитный слой</p>
             </article>
             <div class="flow-link" aria-hidden="true"></div>
-            <article class="flow-node">
+            <article class="flow-node reveal reveal-right" data-reveal>
               <span>05</span>
               <strong>Monitoring</strong>
               <p>health and signals</p>
@@ -193,7 +201,7 @@
 
       <section class="section" id="operations">
         <div class="wrap">
-          <div class="section-head reveal" data-reveal>
+          <div class="section-head reveal reveal-left" data-reveal>
             <p class="eyebrow">Secure network operations</p>
             <h2>Что показывает проект</h2>
             <p>
@@ -203,32 +211,32 @@
           </div>
 
           <div class="card-grid">
-            <article class="feature-card reveal" data-reveal>
+            <article class="feature-card reveal reveal-left reveal-glow" data-reveal>
               <span>01</span>
               <h3>Security-first operations</h3>
               <p>Изменения проходят через проверку, минимизацию риска, понятный план восстановления и чистое описание.</p>
             </article>
-            <article class="feature-card reveal" data-reveal>
+            <article class="feature-card reveal reveal-scale" data-reveal>
               <span>02</span>
               <h3>DNS protection layer</h3>
               <p>Отдельный слой DNS-защиты помогает мыслить сеть как систему, а не набор случайных настроек.</p>
             </article>
-            <article class="feature-card reveal" data-reveal>
+            <article class="feature-card reveal reveal-right" data-reveal>
               <span>03</span>
               <h3>Monitoring mindset</h3>
               <p>Статусы, health-сигналы и понятная панель делают эксплуатацию спокойнее и предсказуемее.</p>
             </article>
-            <article class="feature-card reveal" data-reveal>
+            <article class="feature-card reveal reveal-left" data-reveal>
               <span>04</span>
               <h3>Safe rollout practice</h3>
               <p>Любое улучшение держится на простой дисциплине: backup, change, check, rollback path.</p>
             </article>
-            <article class="feature-card reveal" data-reveal>
+            <article class="feature-card reveal reveal-blur" data-reveal>
               <span>05</span>
               <h3>Availability-focused setup</h3>
               <p>Приоритет на стабильность, понятные зависимости и поведение, которое легко проверить.</p>
             </article>
-            <article class="feature-card reveal" data-reveal>
+            <article class="feature-card reveal reveal-right reveal-glow" data-reveal>
               <span>06</span>
               <h3>Public portfolio hygiene</h3>
               <p>Сайт выглядит как polished showcase, но не показывает production-материалы и приватные следы.</p>
@@ -239,7 +247,7 @@
 
       <section class="section proof-section">
         <div class="wrap proof-grid">
-          <div class="section-head reveal" data-reveal>
+          <div class="section-head reveal reveal-left" data-reveal>
             <p class="eyebrow">Proof of work</p>
             <h2>Подача проекта как зрелой инфраструктурной практики</h2>
             <p>
@@ -248,18 +256,18 @@
             </p>
           </div>
           <div class="timeline" aria-label="Этапы проекта">
-            <article class="timeline-item reveal" data-reveal><span>Stage 1</span><strong>Baseline</strong><p>порядок, минимальная предсказуемость, базовые правила</p></article>
-            <article class="timeline-item reveal" data-reveal><span>Stage 2</span><strong>Core network</strong><p>личная VPN-инфраструктура и разделение ролей</p></article>
-            <article class="timeline-item reveal" data-reveal><span>Stage 3</span><strong>DNS protection</strong><p>защитный слой для более чистой сетевой модели</p></article>
-            <article class="timeline-item reveal" data-reveal><span>Stage 4</span><strong>Monitoring</strong><p>сигналы состояния, health checks и диагностика</p></article>
-            <article class="timeline-item reveal" data-reveal><span>Stage 5</span><strong>Safe rollout</strong><p>резервная точка, проверка и понятный rollback path</p></article>
+            <article class="timeline-item reveal reveal-right" data-reveal><span>Stage 1</span><strong>Baseline</strong><p>порядок, минимальная предсказуемость, базовые правила</p></article>
+            <article class="timeline-item reveal reveal-right" data-reveal><span>Stage 2</span><strong>Core network</strong><p>личная VPN-инфраструктура и разделение ролей</p></article>
+            <article class="timeline-item reveal reveal-right" data-reveal><span>Stage 3</span><strong>DNS protection</strong><p>защитный слой для более чистой сетевой модели</p></article>
+            <article class="timeline-item reveal reveal-right" data-reveal><span>Stage 4</span><strong>Monitoring</strong><p>сигналы состояния, health checks и диагностика</p></article>
+            <article class="timeline-item reveal reveal-right" data-reveal><span>Stage 5</span><strong>Safe rollout</strong><p>резервная точка, проверка и понятный rollback path</p></article>
           </div>
         </div>
       </section>
 
       <section class="section" id="safety">
         <div class="wrap safety-grid">
-          <div class="security-note reveal" data-reveal>
+          <div class="security-note reveal reveal-left reveal-glow" data-reveal>
             <p class="eyebrow">Public safety</p>
             <h2>Что точно не публикуется</h2>
             <p>
@@ -267,8 +275,8 @@
               учётных данных, ключей, логов, customer data или внутренних operational-файлов.
             </p>
           </div>
-          <div class="safe-list reveal" data-reveal aria-label="Безопасные публичные принципы">
-            <p><span>01</span>Только sanitized wording и placeholder-роли.</p>
+          <div class="safe-list reveal reveal-clip" data-reveal aria-label="Безопасные публичные принципы">
+            <p><span>01</span>Только sanitized wording и безопасные публичные роли.</p>
             <p><span>02</span>Никаких ссылок на подключение или конфигурации.</p>
             <p><span>03</span>Production VPN, сервер и ops-часть не затрагиваются.</p>
             <p><span>04</span>Внешних ссылок ровно две: Telegram и GitHub.</p>
@@ -277,7 +285,7 @@
       </section>
 
       <section class="section contact-section" id="contact">
-        <div class="wrap contact-card reveal" data-reveal>
+        <div class="wrap contact-card reveal reveal-scale reveal-glow" data-reveal>
           <p class="eyebrow">Contact and source</p>
           <h2>CloudSync Royale можно показать публично</h2>
           <p>

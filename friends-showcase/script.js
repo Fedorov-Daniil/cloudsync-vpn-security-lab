@@ -13,9 +13,13 @@
   const graph = document.getElementById("traffic-graph");
   const parallaxItems = Array.from(document.querySelectorAll("[data-depth]"));
 
+  document.body.classList.add("is-ready");
+
   const setScrollState = () => {
     const max = Math.max(1, doc.scrollHeight - window.innerHeight);
-    const percent = Math.min(100, Math.max(0, (window.scrollY / max) * 100));
+    const ratio = Math.min(1, Math.max(0, window.scrollY / max));
+    const percent = ratio * 100;
+    doc.style.setProperty("--scroll-ratio", ratio.toFixed(4));
     if (progress) progress.style.setProperty("--scroll", `${percent}%`);
     if (topbar) topbar.dataset.elevated = String(window.scrollY > 18);
   };
@@ -32,9 +36,18 @@
     });
   };
 
+  const counterFrames = new WeakMap();
+  const resetCounter = (element) => {
+    const frameId = counterFrames.get(element);
+    if (frameId) window.cancelAnimationFrame(frameId);
+    counterFrames.delete(element);
+    element.textContent = "0";
+  };
+
   const animateCounter = (element) => {
     const target = Number(element.dataset.countTo || "0");
     if (!Number.isFinite(target)) return;
+    resetCounter(element);
     if (prefersReducedMotion) {
       element.textContent = target.toFixed(target % 1 ? 1 : 0);
       return;
@@ -49,11 +62,13 @@
       const eased = 1 - Math.pow(1 - progressAmount, 3);
       element.textContent = (target * eased).toFixed(decimals);
       if (progressAmount < 1) {
-        window.requestAnimationFrame(frame);
+        counterFrames.set(element, window.requestAnimationFrame(frame));
+      } else {
+        counterFrames.delete(element);
       }
     };
 
-    window.requestAnimationFrame(frame);
+    counterFrames.set(element, window.requestAnimationFrame(frame));
   };
 
   const terminalTimers = new WeakMap();
@@ -99,11 +114,12 @@
         entries.forEach((entry) => {
           const direction = window.scrollY >= lastScrollY ? "down" : "up";
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            entry.target.classList.remove("exit-up");
+            entry.target.classList.add("in-view", "visible");
+            entry.target.classList.remove("out-view", "is-exiting-up");
           } else {
-            entry.target.classList.remove("visible");
-            entry.target.classList.toggle("exit-up", direction === "up");
+            entry.target.classList.remove("in-view", "visible");
+            entry.target.classList.add("out-view");
+            entry.target.classList.toggle("is-exiting-up", direction === "up");
           }
         });
       },
@@ -132,14 +148,18 @@
     const counterObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) animateCounter(entry.target);
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+          } else {
+            resetCounter(entry.target);
+          }
         });
       },
       { threshold: 0.65 }
     );
     counters.forEach((counter) => counterObserver.observe(counter));
   } else {
-    revealItems.forEach((item) => item.classList.add("visible"));
+    revealItems.forEach((item) => item.classList.add("in-view", "visible"));
     terminals.forEach(playTerminal);
     counters.forEach(animateCounter);
   }
@@ -154,10 +174,9 @@
     bars.forEach((bar, index) => {
       const wave = Math.sin(now / 480 + index * 0.62);
       const secondary = Math.cos(now / 760 + index * 0.34);
-      const height = 18 + (wave + 1) * 30 + (secondary + 1) * 10;
-      bar.style.height = `${Math.round(height)}px`;
+      const scale = 0.18 + ((wave + 1) / 2) * 0.56 + ((secondary + 1) / 2) * 0.18;
+      bar.style.setProperty("--bar-scale", scale.toFixed(3));
       bar.style.opacity = String(0.46 + ((wave + 1) / 2) * 0.44);
-      bar.style.transform = `scaleY(${0.92 + ((secondary + 1) / 2) * 0.08})`;
     });
   };
 
@@ -216,6 +235,8 @@
     if (prefersReducedMotion) return;
     const x = pointerX / window.innerWidth - 0.5;
     const y = pointerY / window.innerHeight - 0.5;
+    doc.style.setProperty("--pointer-x", x.toFixed(4));
+    doc.style.setProperty("--pointer-y", y.toFixed(4));
     parallaxItems.forEach((item) => {
       const depth = Number(item.dataset.depth || 0.03);
       item.style.transform = `translate3d(${x * depth * 180}px, ${y * depth * 180}px, 0)`;
