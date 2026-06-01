@@ -1,5 +1,19 @@
 (function () {
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reducedMotion = motionQuery.matches;
+  const mobileQuery = window.matchMedia("(max-width: 760px)");
+  let isPaused = document.hidden;
+  let lastScrollY = window.scrollY;
+
+  const setScrollDirection = () => {
+    const currentY = window.scrollY;
+    const direction = currentY >= lastScrollY ? "down" : "up";
+    document.body.classList.toggle("scrolling-down", direction === "down");
+    document.body.classList.toggle("scrolling-up", direction === "up");
+    lastScrollY = currentY;
+  };
+  setScrollDirection();
+  window.addEventListener("scroll", setScrollDirection, { passive: true });
 
   const revealItems = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
@@ -7,16 +21,20 @@
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
+            entry.target.classList.add("in-view");
+          } else if (entry.boundingClientRect.top > window.innerHeight * 0.18 || entry.boundingClientRect.bottom < -window.innerHeight * 0.18) {
+            entry.target.classList.remove("in-view");
           }
         });
       },
-      { threshold: 0.14 }
+      { rootMargin: "-8% 0px -12% 0px", threshold: [0, 0.16, 0.42] }
     );
-    revealItems.forEach((item) => observer.observe(item));
+    revealItems.forEach((item, index) => {
+      item.style.setProperty("--stagger", `${Math.min(index % 8, 7) * 70}ms`);
+      observer.observe(item);
+    });
   } else {
-    revealItems.forEach((item) => item.classList.add("visible"));
+    revealItems.forEach((item) => item.classList.add("in-view"));
   }
 
   const typeTarget = document.querySelector("[data-typing]");
@@ -27,7 +45,7 @@
       typeTarget.textContent = fullText.slice(0, index);
       index += 1;
       if (index <= fullText.length && !reducedMotion) {
-        window.setTimeout(typeNext, 27);
+        window.setTimeout(typeNext, 24);
       } else {
         typeTarget.textContent = fullText;
       }
@@ -36,34 +54,38 @@
   }
 
   const latency = document.getElementById("latency");
+  let latencyTimer = null;
   if (latency && !reducedMotion) {
-    window.setInterval(() => {
-      latency.textContent = String(24 + Math.floor(Math.random() * 15));
-    }, 1200);
+    latencyTimer = window.setInterval(() => {
+      if (!isPaused) latency.textContent = String(24 + Math.floor(Math.random() * 15));
+    }, 1150);
   }
 
-  document.querySelectorAll(".counter").forEach((counter) => {
+  const animateCounter = (counter) => {
     const target = Number(counter.dataset.target || counter.textContent || 0);
     if (reducedMotion) {
       counter.textContent = target.toFixed(1);
       return;
     }
-    let value = Math.max(0, target - 3.4);
+    let value = Math.max(0, target - 4.2);
     const step = () => {
-      value += (target - value) * 0.09;
+      if (isPaused) return;
+      value += (target - value) * 0.1;
       counter.textContent = value.toFixed(1);
-      if (target - value > 0.04) {
+      if (target - value > 0.035) {
         window.requestAnimationFrame(step);
       } else {
         counter.textContent = target.toFixed(1);
       }
     };
     step();
-  });
+  };
+  document.querySelectorAll(".counter").forEach(animateCounter);
 
   const graph = document.getElementById("pulse-graph");
+  let graphTimer = null;
   if (graph) {
-    const bars = Array.from({ length: 34 }, () => {
+    const bars = Array.from({ length: mobileQuery.matches ? 24 : 34 }, () => {
       const bar = document.createElement("span");
       bar.className = "pulse-bar";
       graph.appendChild(bar);
@@ -71,24 +93,34 @@
     });
 
     const updateBars = () => {
+      if (isPaused) return;
       bars.forEach((bar, barIndex) => {
-        const wave = Math.sin(Date.now() / 520 + barIndex * 0.62);
-        const lift = reducedMotion ? 18 : Math.random() * 30;
-        const height = 20 + (wave + 1) * 30 + lift;
+        const wave = Math.sin(Date.now() / 500 + barIndex * 0.64);
+        const lift = reducedMotion ? 16 : Math.random() * 28;
+        const height = 18 + (wave + 1) * 30 + lift;
         bar.style.height = `${Math.round(height)}px`;
-        bar.style.opacity = String(0.52 + (reducedMotion ? 0.2 : Math.random() * 0.42));
+        bar.style.opacity = String(0.5 + (reducedMotion ? 0.22 : Math.random() * 0.44));
       });
     };
 
     updateBars();
-    if (!reducedMotion) {
-      window.setInterval(updateBars, 620);
-    }
+    if (!reducedMotion) graphTimer = window.setInterval(updateBars, 620);
   }
 
-  const terminalLines = Array.from(document.querySelectorAll("#terminal-lines [data-line]"));
+  const terminal = document.getElementById("terminal-lines");
+  const terminalLines = terminal ? Array.from(terminal.querySelectorAll("[data-line]")) : [];
+  let terminalRun = 0;
+  const clearTerminal = () => {
+    terminalLines.forEach((line) => {
+      line.textContent = "";
+      line.classList.remove("active");
+    });
+  };
   const playTerminal = async () => {
+    const runId = ++terminalRun;
+    clearTerminal();
     for (const line of terminalLines) {
+      if (runId !== terminalRun) return;
       const text = line.dataset.line || "";
       line.classList.add("active");
       if (reducedMotion) {
@@ -97,17 +129,37 @@
         continue;
       }
       for (let charIndex = 0; charIndex <= text.length; charIndex += 1) {
+        if (runId !== terminalRun || isPaused) return;
         line.textContent = text.slice(0, charIndex);
-        await new Promise((resolve) => window.setTimeout(resolve, 18));
+        await new Promise((resolve) => window.setTimeout(resolve, 17));
       }
       line.classList.remove("active");
-      await new Promise((resolve) => window.setTimeout(resolve, 130));
+      await new Promise((resolve) => window.setTimeout(resolve, 120));
     }
   };
-  playTerminal();
+
+  const terminalBlock = document.querySelector(".terminal");
+  if (terminalBlock && "IntersectionObserver" in window) {
+    const terminalObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playTerminal();
+          } else if (entry.boundingClientRect.top > window.innerHeight * 0.2 || entry.boundingClientRect.bottom < -window.innerHeight * 0.2) {
+            terminalRun += 1;
+            clearTerminal();
+          }
+        });
+      },
+      { rootMargin: "-6% 0px -18% 0px", threshold: 0.22 }
+    );
+    terminalObserver.observe(terminalBlock);
+  } else {
+    playTerminal();
+  }
 
   const tiltCards = document.querySelectorAll(".tilt-card");
-  if (tiltCards.length && !reducedMotion) {
+  if (tiltCards.length && !reducedMotion && !mobileQuery.matches) {
     tiltCards.forEach((card) => {
       card.addEventListener("pointermove", (event) => {
         const rect = card.getBoundingClientRect();
@@ -121,16 +173,25 @@
     });
   }
 
+  const spotlight = document.querySelector(".spotlight");
   const parallaxItems = document.querySelectorAll("[data-depth]");
-  if (parallaxItems.length && !reducedMotion) {
-    window.addEventListener("pointermove", (event) => {
-      const x = event.clientX / window.innerWidth - 0.5;
-      const y = event.clientY / window.innerHeight - 0.5;
-      parallaxItems.forEach((item) => {
-        const depth = Number(item.dataset.depth || 0.03);
-        item.style.translate = `${x * depth * 170}px ${y * depth * 170}px`;
-      });
-    });
+  if (!reducedMotion && !mobileQuery.matches) {
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        if (spotlight) {
+          spotlight.style.setProperty("--mx", `${event.clientX}px`);
+          spotlight.style.setProperty("--my", `${event.clientY}px`);
+        }
+        const x = event.clientX / window.innerWidth - 0.5;
+        const y = event.clientY / window.innerHeight - 0.5;
+        parallaxItems.forEach((item) => {
+          const depth = Number(item.dataset.depth || 0.03);
+          item.style.translate = `${x * depth * 170}px ${y * depth * 170}px`;
+        });
+      },
+      { passive: true }
+    );
   }
 
   const canvas = document.getElementById("mesh-canvas");
@@ -140,8 +201,8 @@
   let width = 0;
   let height = 0;
   let particles = [];
-  const isMobile = window.matchMedia("(max-width: 760px)").matches;
-  const particleCount = reducedMotion ? 26 : isMobile ? 42 : 76;
+  let frameId = 0;
+  const particleCount = reducedMotion ? 22 : mobileQuery.matches ? 32 : 82;
 
   const resize = () => {
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -156,14 +217,18 @@
     particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.32,
-      vy: (Math.random() - 0.5) * 0.32,
-      size: 1.2 + Math.random() * 2.1,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      size: 1.1 + Math.random() * 2,
       hue: Math.random() > 0.45 ? 188 : 258
     }));
   };
 
   const draw = () => {
+    if (isPaused) {
+      frameId = 0;
+      return;
+    }
     ctx.clearRect(0, 0, width, height);
     particles.forEach((particle, index) => {
       if (!reducedMotion) {
@@ -184,23 +249,31 @@
         const dx = particle.x - next.x;
         const dy = particle.y - next.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 122) {
+        if (distance < 124) {
           ctx.beginPath();
           ctx.moveTo(particle.x, particle.y);
           ctx.lineTo(next.x, next.y);
-          ctx.strokeStyle = `rgba(69, 231, 255, ${0.16 * (1 - distance / 122)})`;
+          ctx.strokeStyle = `rgba(69, 231, 255, ${0.16 * (1 - distance / 124)})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
     });
 
-    if (!reducedMotion) {
-      window.requestAnimationFrame(draw);
-    }
+    if (!reducedMotion) frameId = window.requestAnimationFrame(draw);
   };
 
   resize();
   draw();
-  window.addEventListener("resize", resize);
+  window.addEventListener("resize", resize, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    isPaused = document.hidden;
+    if (!isPaused && !frameId && !reducedMotion) draw();
+  });
+
+  window.addEventListener("pagehide", () => {
+    if (frameId) window.cancelAnimationFrame(frameId);
+    if (latencyTimer) window.clearInterval(latencyTimer);
+    if (graphTimer) window.clearInterval(graphTimer);
+  });
 })();
