@@ -1,8 +1,8 @@
 # CloudSync Royale
 
-Публичная demo showcase страница для личного VPN / security homelab проекта.
+Публичная showcase-витрина для личного VPN / security homelab проекта.
 
-Это статическая витрина для показа идеи проекта: стабильность, DNS-защита, мониторинг, бэкапы, rollback-first подход и аккуратная инфраструктура. Страница не является инструкцией подключения и не раскрывает production-детали.
+Страница показывает визуальный обзор проекта: стабильность, DNS-защиту, мониторинг, бэкапы, rollback-first подход и аккуратную инфраструктурную дисциплину. Это не инструкция подключения и не раскрытие production-деталей.
 
 ## Как открыть локально
 
@@ -28,7 +28,7 @@ python3 -m http.server 8090 --directory friends-showcase
 docs/royale/
 ```
 
-Ожидаемый URL после Pages build:
+Ожидаемый URL:
 
 ```text
 https://fedorov-daniil.github.io/cloudsync-vpn-security-lab/royale/
@@ -36,6 +36,6 @@ https://fedorov-daniil.github.io/cloudsync-vpn-security-lab/royale/
 
 ## Безопасность
 
-Внутри используются только demo values и placeholders: `example.com`, `vpn.example.com`, `node.example.com`, `shield.example.com`, `203.0.113.10`, `Demo Node`, `Private Lab`, `Demo Values`, `REDACTED`.
+Внутри используются только public-safe значения и очищенные labels: `example.com`, `vpn.example.com`, `node.example.com`, `shield.example.com`, `203.0.113.10`, `Private Lab`, `REDACTED`.
 
 Production VPN и live-конфиги не меняются.
