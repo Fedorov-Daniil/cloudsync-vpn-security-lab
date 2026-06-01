@@ -34,6 +34,11 @@ docs/royale/
 /royale/
 ```
 
+На странице есть только две внешние публичные ссылки:
+
+- `https://t.me/cloudsyncvpnroyale`
+- `https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab`
+
 ## Безопасность
 
 Внутри используются только public-safe значения и очищенные labels: `example.com`, `vpn.example.com`, `node.example.com`, `shield.example.com`, `203.0.113.10`, `Private Lab`, `REDACTED`.
