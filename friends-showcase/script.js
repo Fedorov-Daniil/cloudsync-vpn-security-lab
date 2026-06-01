@@ -1,210 +1,255 @@
 (function () {
+  "use strict";
+
   const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const reducedMotion = motionQuery.matches;
-  const mobileQuery = window.matchMedia("(max-width: 760px)");
-  let isPaused = document.hidden;
-  let lastScrollY = window.scrollY;
+  let prefersReducedMotion = motionQuery.matches;
 
-  const setScrollDirection = () => {
-    const currentY = window.scrollY;
-    const direction = currentY >= lastScrollY ? "down" : "up";
-    document.body.classList.toggle("scrolling-down", direction === "down");
-    document.body.classList.toggle("scrolling-up", direction === "up");
-    lastScrollY = currentY;
+  const doc = document.documentElement;
+  const topbar = document.querySelector(".topbar");
+  const progress = document.querySelector(".scroll-progress");
+  const revealItems = Array.from(document.querySelectorAll("[data-reveal]"));
+  const terminals = Array.from(document.querySelectorAll("[data-terminal]"));
+  const counters = Array.from(document.querySelectorAll("[data-count-to]"));
+  const graph = document.getElementById("traffic-graph");
+  const parallaxItems = Array.from(document.querySelectorAll("[data-depth]"));
+
+  const setScrollState = () => {
+    const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const percent = Math.min(100, Math.max(0, (window.scrollY / max) * 100));
+    if (progress) progress.style.setProperty("--scroll", `${percent}%`);
+    if (topbar) topbar.dataset.elevated = String(window.scrollY > 18);
   };
-  setScrollDirection();
-  window.addEventListener("scroll", setScrollDirection, { passive: true });
 
-  const revealItems = document.querySelectorAll(".reveal");
+  let lastScrollY = window.scrollY;
+  let tickingScroll = false;
+  const onScroll = () => {
+    if (tickingScroll) return;
+    tickingScroll = true;
+    window.requestAnimationFrame(() => {
+      setScrollState();
+      lastScrollY = window.scrollY;
+      tickingScroll = false;
+    });
+  };
+
+  const animateCounter = (element) => {
+    const target = Number(element.dataset.countTo || "0");
+    if (!Number.isFinite(target)) return;
+    if (prefersReducedMotion) {
+      element.textContent = target.toFixed(target % 1 ? 1 : 0);
+      return;
+    }
+
+    const startedAt = performance.now();
+    const duration = 920;
+    const decimals = target % 1 ? 1 : 0;
+
+    const frame = (now) => {
+      const progressAmount = Math.min(1, (now - startedAt) / duration);
+      const eased = 1 - Math.pow(1 - progressAmount, 3);
+      element.textContent = (target * eased).toFixed(decimals);
+      if (progressAmount < 1) {
+        window.requestAnimationFrame(frame);
+      }
+    };
+
+    window.requestAnimationFrame(frame);
+  };
+
+  const terminalTimers = new WeakMap();
+  const clearTerminal = (terminal) => {
+    const timer = terminalTimers.get(terminal);
+    if (timer) window.clearTimeout(timer);
+    terminalTimers.delete(terminal);
+  };
+
+  const playTerminal = (terminal) => {
+    const output = terminal.querySelector("[data-terminal-output]");
+    if (!output) return;
+
+    const text = terminal.dataset.terminalText || "";
+    clearTerminal(terminal);
+
+    if (prefersReducedMotion) {
+      output.textContent = text;
+      return;
+    }
+
+    output.textContent = "";
+    let index = 0;
+    const type = () => {
+      output.textContent = text.slice(0, index);
+      index += 1;
+      if (index <= text.length) {
+        terminalTimers.set(terminal, window.setTimeout(type, 26));
+      }
+    };
+    type();
+  };
+
+  const resetTerminal = (terminal) => {
+    const output = terminal.querySelector("[data-terminal-output]");
+    clearTerminal(terminal);
+    if (output) output.textContent = "";
+  };
+
   if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
+    const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const direction = window.scrollY >= lastScrollY ? "down" : "up";
           if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-          } else if (entry.boundingClientRect.top > window.innerHeight * 0.18 || entry.boundingClientRect.bottom < -window.innerHeight * 0.18) {
-            entry.target.classList.remove("in-view");
+            entry.target.classList.add("visible");
+            entry.target.classList.remove("exit-up");
+          } else {
+            entry.target.classList.remove("visible");
+            entry.target.classList.toggle("exit-up", direction === "up");
           }
         });
       },
-      { rootMargin: "-8% 0px -12% 0px", threshold: [0, 0.16, 0.42] }
+      { rootMargin: "-8% 0px -8% 0px", threshold: 0.14 }
     );
+
     revealItems.forEach((item, index) => {
-      item.style.setProperty("--stagger", `${Math.min(index % 8, 7) * 70}ms`);
-      observer.observe(item);
-    });
-  } else {
-    revealItems.forEach((item) => item.classList.add("in-view"));
-  }
-
-  const typeTarget = document.querySelector("[data-typing]");
-  if (typeTarget) {
-    const fullText = typeTarget.dataset.typing || "";
-    let index = 0;
-    const typeNext = () => {
-      typeTarget.textContent = fullText.slice(0, index);
-      index += 1;
-      if (index <= fullText.length && !reducedMotion) {
-        window.setTimeout(typeNext, 24);
-      } else {
-        typeTarget.textContent = fullText;
-      }
-    };
-    typeNext();
-  }
-
-  const latency = document.getElementById("latency");
-  let latencyTimer = null;
-  if (latency && !reducedMotion) {
-    latencyTimer = window.setInterval(() => {
-      if (!isPaused) latency.textContent = String(24 + Math.floor(Math.random() * 15));
-    }, 1150);
-  }
-
-  const animateCounter = (counter) => {
-    const target = Number(counter.dataset.target || counter.textContent || 0);
-    if (reducedMotion) {
-      counter.textContent = target.toFixed(1);
-      return;
-    }
-    let value = Math.max(0, target - 4.2);
-    const step = () => {
-      if (isPaused) return;
-      value += (target - value) * 0.1;
-      counter.textContent = value.toFixed(1);
-      if (target - value > 0.035) {
-        window.requestAnimationFrame(step);
-      } else {
-        counter.textContent = target.toFixed(1);
-      }
-    };
-    step();
-  };
-  document.querySelectorAll(".counter").forEach(animateCounter);
-
-  const graph = document.getElementById("pulse-graph");
-  let graphTimer = null;
-  if (graph) {
-    const bars = Array.from({ length: mobileQuery.matches ? 24 : 34 }, () => {
-      const bar = document.createElement("span");
-      bar.className = "pulse-bar";
-      graph.appendChild(bar);
-      return bar;
+      item.style.setProperty("--reveal-delay", `${Math.min(index % 4, 3) * 55}ms`);
+      revealObserver.observe(item);
     });
 
-    const updateBars = () => {
-      if (isPaused) return;
-      bars.forEach((bar, barIndex) => {
-        const wave = Math.sin(Date.now() / 500 + barIndex * 0.64);
-        const lift = reducedMotion ? 16 : Math.random() * 28;
-        const height = 18 + (wave + 1) * 30 + lift;
-        bar.style.height = `${Math.round(height)}px`;
-        bar.style.opacity = String(0.5 + (reducedMotion ? 0.22 : Math.random() * 0.44));
-      });
-    };
-
-    updateBars();
-    if (!reducedMotion) graphTimer = window.setInterval(updateBars, 620);
-  }
-
-  const terminal = document.getElementById("terminal-lines");
-  const terminalLines = terminal ? Array.from(terminal.querySelectorAll("[data-line]")) : [];
-  let terminalRun = 0;
-  const clearTerminal = () => {
-    terminalLines.forEach((line) => {
-      line.textContent = "";
-      line.classList.remove("active");
-    });
-  };
-  const playTerminal = async () => {
-    const runId = ++terminalRun;
-    clearTerminal();
-    for (const line of terminalLines) {
-      if (runId !== terminalRun) return;
-      const text = line.dataset.line || "";
-      line.classList.add("active");
-      if (reducedMotion) {
-        line.textContent = text;
-        line.classList.remove("active");
-        continue;
-      }
-      for (let charIndex = 0; charIndex <= text.length; charIndex += 1) {
-        if (runId !== terminalRun || isPaused) return;
-        line.textContent = text.slice(0, charIndex);
-        await new Promise((resolve) => window.setTimeout(resolve, 17));
-      }
-      line.classList.remove("active");
-      await new Promise((resolve) => window.setTimeout(resolve, 120));
-    }
-  };
-
-  const terminalBlock = document.querySelector(".terminal");
-  if (terminalBlock && "IntersectionObserver" in window) {
     const terminalObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            playTerminal();
-          } else if (entry.boundingClientRect.top > window.innerHeight * 0.2 || entry.boundingClientRect.bottom < -window.innerHeight * 0.2) {
-            terminalRun += 1;
-            clearTerminal();
+            playTerminal(entry.target);
+          } else {
+            resetTerminal(entry.target);
           }
         });
       },
-      { rootMargin: "-6% 0px -18% 0px", threshold: 0.22 }
+      { threshold: 0.55 }
     );
-    terminalObserver.observe(terminalBlock);
+    terminals.forEach((terminal) => terminalObserver.observe(terminal));
+
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) animateCounter(entry.target);
+        });
+      },
+      { threshold: 0.65 }
+    );
+    counters.forEach((counter) => counterObserver.observe(counter));
   } else {
-    playTerminal();
+    revealItems.forEach((item) => item.classList.add("visible"));
+    terminals.forEach(playTerminal);
+    counters.forEach(animateCounter);
   }
 
-  const tiltCards = document.querySelectorAll(".tilt-card");
-  if (tiltCards.length && !reducedMotion && !mobileQuery.matches) {
-    tiltCards.forEach((card) => {
-      card.addEventListener("pointermove", (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(900px) rotateX(${y * -5}deg) rotateY(${x * 6}deg) translateY(-2px)`;
-      });
-      card.addEventListener("pointerleave", () => {
-        card.style.transform = "";
-      });
+  const bars = [];
+  let graphActive = false;
+  let graphTimer = 0;
+
+  const updateBars = () => {
+    if (!graph || !bars.length) return;
+    const now = performance.now();
+    bars.forEach((bar, index) => {
+      const wave = Math.sin(now / 480 + index * 0.62);
+      const secondary = Math.cos(now / 760 + index * 0.34);
+      const height = 18 + (wave + 1) * 30 + (secondary + 1) * 10;
+      bar.style.height = `${Math.round(height)}px`;
+      bar.style.opacity = String(0.46 + ((wave + 1) / 2) * 0.44);
+      bar.style.transform = `scaleY(${0.92 + ((secondary + 1) / 2) * 0.08})`;
     });
+  };
+
+  const startGraph = () => {
+    if (!graph || graphActive || prefersReducedMotion) return;
+    graphActive = true;
+    updateBars();
+    graphTimer = window.setInterval(updateBars, 640);
+  };
+
+  const stopGraph = () => {
+    graphActive = false;
+    if (graphTimer) window.clearInterval(graphTimer);
+    graphTimer = 0;
+  };
+
+  if (graph) {
+    for (let index = 0; index < 32; index += 1) {
+      const bar = document.createElement("span");
+      bar.className = "traffic-bar";
+      graph.appendChild(bar);
+      bars.push(bar);
+    }
+    updateBars();
+
+    if ("IntersectionObserver" in window) {
+      const graphObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) startGraph();
+            else stopGraph();
+          });
+        },
+        { threshold: 0.24 }
+      );
+      graphObserver.observe(graph);
+    } else {
+      startGraph();
+    }
   }
 
-  const spotlight = document.querySelector(".spotlight");
-  const parallaxItems = document.querySelectorAll("[data-depth]");
-  if (!reducedMotion && !mobileQuery.matches) {
+  const setPointerVars = (event) => {
+    const target = event.target.closest(".button, .contact-button");
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    target.style.setProperty("--x", `${event.clientX - rect.left}px`);
+    target.style.setProperty("--y", `${event.clientY - rect.top}px`);
+  };
+  document.addEventListener("pointermove", setPointerVars, { passive: true });
+
+  let parallaxFrame = 0;
+  let pointerX = 0;
+  let pointerY = 0;
+  const updateParallax = () => {
+    parallaxFrame = 0;
+    if (prefersReducedMotion) return;
+    const x = pointerX / window.innerWidth - 0.5;
+    const y = pointerY / window.innerHeight - 0.5;
+    parallaxItems.forEach((item) => {
+      const depth = Number(item.dataset.depth || 0.03);
+      item.style.transform = `translate3d(${x * depth * 180}px, ${y * depth * 180}px, 0)`;
+    });
+  };
+
+  if (parallaxItems.length) {
     window.addEventListener(
       "pointermove",
       (event) => {
-        if (spotlight) {
-          spotlight.style.setProperty("--mx", `${event.clientX}px`);
-          spotlight.style.setProperty("--my", `${event.clientY}px`);
-        }
-        const x = event.clientX / window.innerWidth - 0.5;
-        const y = event.clientY / window.innerHeight - 0.5;
-        parallaxItems.forEach((item) => {
-          const depth = Number(item.dataset.depth || 0.03);
-          item.style.translate = `${x * depth * 170}px ${y * depth * 170}px`;
-        });
+        pointerX = event.clientX;
+        pointerY = event.clientY;
+        if (!parallaxFrame) parallaxFrame = window.requestAnimationFrame(updateParallax);
       },
       { passive: true }
     );
   }
 
-  const canvas = document.getElementById("mesh-canvas");
+  const canvas = document.getElementById("network-canvas");
   const ctx = canvas ? canvas.getContext("2d") : null;
-  if (!canvas || !ctx) return;
-
   let width = 0;
   let height = 0;
   let particles = [];
-  let frameId = 0;
-  const particleCount = reducedMotion ? 22 : mobileQuery.matches ? 32 : 82;
+  let canvasFrame = 0;
 
-  const resize = () => {
+  const particleCount = () => {
+    if (prefersReducedMotion) return 20;
+    if (window.innerWidth < 560) return 34;
+    if (window.innerWidth < 980) return 46;
+    return 64;
+  };
+
+  const resizeCanvas = () => {
+    if (!canvas || !ctx) return;
     const ratio = Math.min(window.devicePixelRatio || 1, 2);
     width = window.innerWidth;
     height = window.innerHeight;
@@ -214,34 +259,34 @@
     canvas.style.height = `${height}px`;
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-    particles = Array.from({ length: particleCount }, () => ({
+    particles = Array.from({ length: particleCount() }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      size: 1.1 + Math.random() * 2,
-      hue: Math.random() > 0.45 ? 188 : 258
+      vx: (Math.random() - 0.5) * 0.28,
+      vy: (Math.random() - 0.5) * 0.28,
+      size: 1 + Math.random() * 2.1,
+      hue: Math.random() > 0.58 ? 153 : 190
     }));
   };
 
-  const draw = () => {
-    if (isPaused) {
-      frameId = 0;
-      return;
-    }
+  const drawCanvas = () => {
+    if (!canvas || !ctx) return;
     ctx.clearRect(0, 0, width, height);
+
     particles.forEach((particle, index) => {
-      if (!reducedMotion) {
+      if (!prefersReducedMotion) {
         particle.x += particle.vx;
         particle.y += particle.vy;
       }
 
-      if (particle.x < 0 || particle.x > width) particle.vx *= -1;
-      if (particle.y < 0 || particle.y > height) particle.vy *= -1;
+      if (particle.x < -10) particle.x = width + 10;
+      if (particle.x > width + 10) particle.x = -10;
+      if (particle.y < -10) particle.y = height + 10;
+      if (particle.y > height + 10) particle.y = -10;
 
       ctx.beginPath();
       ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${particle.hue}, 100%, 72%, 0.66)`;
+      ctx.fillStyle = `hsla(${particle.hue}, 100%, 72%, 0.62)`;
       ctx.fill();
 
       for (let nextIndex = index + 1; nextIndex < particles.length; nextIndex += 1) {
@@ -249,31 +294,67 @@
         const dx = particle.x - next.x;
         const dy = particle.y - next.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 124) {
+        if (distance < 126) {
           ctx.beginPath();
           ctx.moveTo(particle.x, particle.y);
           ctx.lineTo(next.x, next.y);
-          ctx.strokeStyle = `rgba(69, 231, 255, ${0.16 * (1 - distance / 124)})`;
+          ctx.strokeStyle = `rgba(70, 229, 255, ${0.13 * (1 - distance / 126)})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
     });
 
-    if (!reducedMotion) frameId = window.requestAnimationFrame(draw);
+    if (!prefersReducedMotion && !document.hidden) {
+      canvasFrame = window.requestAnimationFrame(drawCanvas);
+    }
   };
 
-  resize();
-  draw();
-  window.addEventListener("resize", resize, { passive: true });
-  document.addEventListener("visibilitychange", () => {
-    isPaused = document.hidden;
-    if (!isPaused && !frameId && !reducedMotion) draw();
-  });
+  const startCanvas = () => {
+    if (!canvas || !ctx || prefersReducedMotion || canvasFrame) return;
+    canvasFrame = window.requestAnimationFrame(drawCanvas);
+  };
 
-  window.addEventListener("pagehide", () => {
-    if (frameId) window.cancelAnimationFrame(frameId);
-    if (latencyTimer) window.clearInterval(latencyTimer);
-    if (graphTimer) window.clearInterval(graphTimer);
-  });
+  const stopCanvas = () => {
+    if (canvasFrame) window.cancelAnimationFrame(canvasFrame);
+    canvasFrame = 0;
+  };
+
+  if (canvas && ctx) {
+    resizeCanvas();
+    drawCanvas();
+    if (!prefersReducedMotion) startCanvas();
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      updateBars();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stopCanvas();
+      else startCanvas();
+    });
+  }
+
+  const applyMotionPreference = () => {
+    prefersReducedMotion = motionQuery.matches;
+    if (prefersReducedMotion) {
+      stopGraph();
+      stopCanvas();
+      terminals.forEach(playTerminal);
+      counters.forEach(animateCounter);
+    } else {
+      startGraph();
+      startCanvas();
+    }
+  };
+
+  if (typeof motionQuery.addEventListener === "function") {
+    motionQuery.addEventListener("change", applyMotionPreference);
+  } else if (typeof motionQuery.addListener === "function") {
+    motionQuery.addListener(applyMotionPreference);
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", setScrollState, { passive: true });
+  setScrollState();
 })();

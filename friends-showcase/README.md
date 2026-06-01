@@ -1,46 +1,40 @@
 # CloudSync Royale
 
-Публичная showcase-витрина для личного VPN / security homelab проекта.
+Premium public showcase for a personal VPN infrastructure and security homelab.
 
-Страница показывает визуальный обзор проекта: стабильность, DNS-защиту, мониторинг, бэкапы, rollback-first подход и аккуратную инфраструктурную дисциплину. Это не инструкция доступа и не раскрытие production-деталей.
+This is a sanitized static page for portfolio and friends-facing presentation. It is not a sales page, does not offer VPN access, and does not include production files, real IPs, private VPN domains, credentials, customer data, logs, graphic access codes, or working access links.
 
-## Как открыть локально
+## Public path
 
-Откройте файл:
-
-```text
-friends-showcase/index.html
-```
-
-Или запустите простой локальный preview без установки пакетов:
-
-```bash
-python3 -m http.server 8090 --directory friends-showcase
-```
-
-После проверки остановите процесс через `Ctrl+C`.
-
-## Публичная копия
-
-Версия для GitHub Pages синхронизируется в:
+The published GitHub Pages copy lives in:
 
 ```text
 docs/royale/
 ```
 
-Ожидаемый путь на GitHub Pages:
+Expected URL:
 
 ```text
-/royale/
+https://fedorov-daniil.github.io/cloudsync-vpn-security-lab/royale/
 ```
 
-На странице есть только две внешние публичные ссылки:
+## Local preview
 
-- `https://t.me/cloudsyncvpnroyale`
-- `https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab`
+From the repository root:
 
-## Безопасность
+```bash
+python -m http.server 8088 --directory docs
+```
 
-Внутри используются только public-safe значения и очищенные labels: `example.com`, `vpn.example.com`, `node.example.com`, `shield.example.com`, `203.0.113.10`, `Private Lab`, `REDACTED`.
+Then open:
 
-Production VPN и live-конфиги не меняются.
+```text
+http://localhost:8088/royale/
+```
+
+## Allowed external links
+
+- Telegram: `https://t.me/cloudsyncvpnroyale`
+- GitHub: `https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab`
+
+No other external links or resources are used.

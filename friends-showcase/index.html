@@ -3,317 +3,304 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="CloudSync Royale — публичная витрина личного VPN и security homelab проекта с безопасным визуальным обзором архитектуры.">
-    <title>CloudSync Royale — Infrastructure Showcase</title>
+    <meta name="description" content="CloudSync Royale - private infrastructure showcase for security-first network operations, DNS protection, monitoring, and safe rollout practices.">
+    <meta name="theme-color" content="#050814">
+    <title>CloudSync Royale - Private Infrastructure Showcase</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
-  <body class="scrolling-down">
-    <canvas id="mesh-canvas" aria-hidden="true"></canvas>
-    <div class="spotlight" aria-hidden="true"></div>
-    <div class="noise" aria-hidden="true"></div>
+  <body>
+    <canvas id="network-canvas" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
     <div class="aura aura-one" aria-hidden="true"></div>
     <div class="aura aura-two" aria-hidden="true"></div>
-    <div class="aura aura-three" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"></div>
 
-    <header class="topbar">
+    <header class="topbar" data-elevated="false">
       <a class="brand" href="#hero" aria-label="CloudSync Royale">
-        <span class="brand-sign">CS</span>
-        <span>CloudSync Royale</span>
+        <span class="brand-mark">CS</span>
+        <span class="brand-copy">
+          <strong>CloudSync Royale</strong>
+          <small>Private showcase</small>
+        </span>
       </a>
-      <nav class="nav" aria-label="Навигация по showcase">
-        <a href="#system">Система</a>
-        <a href="#architecture">Архитектура</a>
-        <a href="#features">Фичи</a>
-        <a href="#console">Console</a>
-        <a href="#contact">Контакт</a>
+      <nav class="nav" aria-label="Навигация по странице">
+        <a href="#overview">Showcase</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#operations">Operations</a>
         <a href="#safety">Safety</a>
+        <a href="#contact">Contact</a>
       </nav>
     </header>
 
     <main>
       <section class="hero section" id="hero">
         <div class="wrap hero-grid">
-          <div class="hero-copy reveal fade-up glass-shine">
-            <p class="eyebrow">Private Lab · Public Showcase</p>
-            <h1 class="glitch-title" data-text="CloudSync Royale">CloudSync Royale</h1>
-            <p class="typing-line">
-              <span data-typing="Публичная витрина личного VPN / security homelab: стабильность, DNS-защита, мониторинг, бэкапы и аккуратные изменения."></span>
+          <div class="hero-copy reveal" data-reveal>
+            <p class="eyebrow">Private infrastructure showcase</p>
+            <h1>CloudSync Royale</h1>
+            <p class="subtitle">
+              Персональная VPN-инфраструктура и security homelab, оформленные как аккуратный proof-of-work:
+              DNS protection, monitoring, safe rollout, rollback-first подход и публичная подача без приватных данных.
             </p>
-            <p class="hero-text">
-              CloudSync Royale показывает архитектуру и характер настоящего инфраструктурного проекта:
-              строгая маршрутизация, наблюдаемость, резервное копирование и безопасный подход к изменениям
-              в sanitized public view.
-            </p>
-            <div class="actions">
-              <a class="btn primary" href="#system">Смотреть систему</a>
-              <a class="btn ghost" href="#architecture">Как это работает</a>
+            <div class="hero-actions" aria-label="Основные действия">
+              <a class="button primary" href="#overview">
+                <span>Смотреть showcase</span>
+              </a>
+              <a class="button ghost" href="#contact">
+                <span>Связаться</span>
+              </a>
             </div>
-            <div class="hero-badges" aria-label="Public showcase markers">
-              <span>Visual Showcase</span>
-              <span>REDACTED View</span>
-              <span>Private Lab</span>
+            <div class="trust-strip" aria-label="Ключевые акценты проекта">
+              <span>Security-first operations</span>
+              <span>DNS protection</span>
+              <span>Availability-focused setup</span>
+            </div>
+            <div class="terminal" data-terminal data-terminal-text="public view initialized · sensitive details redacted · operations posture clean">
+              <div class="terminal-top">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <p><strong>royale@public</strong> <span data-terminal-output></span><i aria-hidden="true"></i></p>
             </div>
           </div>
 
-          <div class="hero-orb reveal rotate-soft scale-in tilt-card" data-depth="0.055" aria-label="Голографический shield dashboard">
-            <div class="orb-shell">
-              <div class="orb-grid"></div>
-              <div class="orb-core">
-                <span class="shield-mark">◆</span>
-                <strong>Royale</strong>
-                <small>shield.example.com</small>
+          <div class="hero-stage reveal" data-reveal data-depth="0.035" aria-label="Визуальная модель CloudSync Royale">
+            <div class="orbital">
+              <div class="orbital-grid" aria-hidden="true"></div>
+              <div class="orbit orbit-one" aria-hidden="true"></div>
+              <div class="orbit orbit-two" aria-hidden="true"></div>
+              <div class="orbit orbit-three" aria-hidden="true"></div>
+              <div class="core-card">
+                <span class="core-pulse" aria-hidden="true"></span>
+                <small>Core posture</small>
+                <strong>Protected</strong>
               </div>
-              <span class="orbit orbit-a">DNS</span>
-              <span class="orbit orbit-b">VPN</span>
-              <span class="orbit orbit-c">Mon</span>
-              <span class="orbit orbit-d">Git</span>
-            </div>
-            <div class="glass-strip">
-              <span>Private Lab</span>
-              <strong>203.0.113.10</strong>
+              <div class="node-card node-a">DNS shield</div>
+              <div class="node-card node-b">Health checks</div>
+              <div class="node-card node-c">Rollback plan</div>
+              <div class="node-card node-d">Clean docs</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" id="system">
+      <section class="section" id="overview">
         <div class="wrap">
-          <div class="section-head reveal fade-up">
-            <p class="eyebrow">Cinematic Status</p>
-            <h2>Command deck для публичного обзора системы</h2>
-            <p>Панель показывает настроение проекта: чистая инфраструктура, понятные состояния и аккуратный operational rhythm.</p>
+          <div class="section-head reveal" data-reveal>
+            <p class="eyebrow">Showcase layer</p>
+            <h2>Публичная витрина без operational leakage</h2>
+            <p>
+              Страница показывает инженерную идею проекта: роли компонентов, контроль состояния,
+              безопасную дисциплину изменений и красивую презентацию для портфолио.
+            </p>
           </div>
 
-          <div class="dashboard reveal glow-in tilt-card">
-            <div class="system-pulse" aria-hidden="true"></div>
-            <div class="dashboard-top">
-              <div>
-                <p class="panel-kicker">CloudSync Royale</p>
-                <h3>System Command Deck</h3>
+          <div class="cockpit reveal" data-reveal>
+            <div class="cockpit-main">
+              <div class="panel-title">
+                <div>
+                  <p class="panel-label">CloudSync Royale</p>
+                  <h3>Operations Cockpit</h3>
+                </div>
+                <span class="status-pill"><i></i> Public-safe</span>
               </div>
-              <div class="live-pill"><span></span> Online</div>
+
+              <div class="metrics">
+                <article class="metric">
+                  <span>Availability focus</span>
+                  <strong><span data-count-to="99.9">0</span>%</strong>
+                  <small>target-oriented operating model</small>
+                </article>
+                <article class="metric">
+                  <span>Health posture</span>
+                  <strong><span data-count-to="100">0</span>%</strong>
+                  <small>synthetic public indicator</small>
+                </article>
+                <article class="metric">
+                  <span>Public exposure</span>
+                  <strong>0 secrets</strong>
+                  <small>sanitized showcase only</small>
+                </article>
+              </div>
+
+              <div class="signal-card">
+                <div class="signal-head">
+                  <span>Network pulse</span>
+                  <strong>sanitized visual</strong>
+                </div>
+                <div class="traffic-graph" id="traffic-graph" aria-hidden="true"></div>
+              </div>
             </div>
 
-            <div class="metric-row">
-              <article class="metric reveal scale-in edge-flow">
-                <span>Uptime</span>
-                <strong><span class="counter" data-target="99.9">99.9</span>%</strong>
-                <small>stability signal</small>
-              </article>
-              <article class="metric reveal scale-in edge-flow">
-                <span>Latency</span>
-                <strong><span id="latency">31</span> ms</strong>
-                <small>animated signal range</small>
-              </article>
-              <article class="metric reveal scale-in edge-flow">
-                <span>Node label</span>
-                <strong>Private Lab</strong>
-                <small>node.example.com</small>
-              </article>
-              <article class="metric reveal scale-in edge-flow">
-                <span>View</span>
-                <strong>Sanitized</strong>
-                <small>public-safe overview</small>
-              </article>
-            </div>
-
-            <div class="status-grid">
-              <article class="status-card reveal slide-left"><span></span><b>Core</b><em>Online</em></article>
-              <article class="status-card reveal slide-left"><span></span><b>DNS Shield</b><em>Active</em></article>
-              <article class="status-card reveal slide-left"><span></span><b>Routing Logic</b><em>Optimized</em></article>
-              <article class="status-card reveal slide-right"><span></span><b>Backup Guard</b><em>Ready</em></article>
-              <article class="status-card reveal slide-right"><span></span><b>Monitoring</b><em>Watching</em></article>
-              <article class="status-card reveal slide-right"><span></span><b>Health</b><em>Stable</em></article>
-            </div>
-
-            <div class="pulse-panel reveal blur-in">
-              <div class="pulse-head">
-                <span>Infrastructure Pulse</span>
-                <b>showcase stream</b>
-              </div>
-              <div class="signal-row" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span>
-              </div>
-              <div class="pulse-graph" id="pulse-graph" aria-label="Анимированный график состояния"></div>
-            </div>
+            <aside class="cockpit-side" aria-label="Состояния компонентов">
+              <article><span></span><strong>Core routing</strong><em>stable</em></article>
+              <article><span></span><strong>DNS protection</strong><em>active</em></article>
+              <article><span></span><strong>Monitoring</strong><em>visible</em></article>
+              <article><span></span><strong>Backup mindset</strong><em>ready</em></article>
+              <article><span></span><strong>Rollout process</strong><em>controlled</em></article>
+              <article><span></span><strong>Public safety</strong><em>clean</em></article>
+            </aside>
           </div>
         </div>
       </section>
 
       <section class="section" id="architecture">
         <div class="wrap">
-          <div class="section-head reveal fade-up">
-            <p class="eyebrow">Architecture Map</p>
-            <h2>Голографическая карта потока</h2>
-            <p>Публичная версия показывает роли компонентов и идею маршрута без раскрытия production-данных.</p>
+          <div class="section-head reveal" data-reveal>
+            <p class="eyebrow">Architecture</p>
+            <h2>Схема ролей вместо раскрытия инфраструктуры</h2>
+            <p>
+              Архитектура описана через безопасные роли и принципы. Реальные адреса, домены,
+              конфиги, порты и внутренние связки не публикуются.
+            </p>
           </div>
 
-          <div class="flow reveal architecture-reveal" aria-label="Device to Internet architecture flow">
-            <article class="flow-node reveal rotate-soft scale-in tilt-card"><span>01</span><strong>Device</strong></article>
-            <div class="flow-line"><i></i></div>
-            <article class="flow-node reveal rotate-soft scale-in tilt-card"><span>02</span><strong>Secure Client</strong></article>
-            <div class="flow-line"><i></i></div>
-            <article class="flow-node reveal rotate-soft scale-in tilt-card"><span>03</span><strong>VPN Gateway</strong></article>
-            <div class="flow-line"><i></i></div>
-            <article class="flow-node reveal rotate-soft scale-in tilt-card"><span>04</span><strong>DNS Shield</strong></article>
-            <div class="flow-line"><i></i></div>
-            <article class="flow-node reveal rotate-soft scale-in tilt-card"><span>05</span><strong>Monitoring</strong></article>
-            <div class="flow-line"><i></i></div>
-            <article class="flow-node reveal rotate-soft scale-in tilt-card"><span>06</span><strong>Internet</strong></article>
+          <div class="flow reveal" data-reveal>
+            <article class="flow-node">
+              <span>01</span>
+              <strong>Personal device</strong>
+              <p>точка входа пользователя</p>
+            </article>
+            <div class="flow-link" aria-hidden="true"></div>
+            <article class="flow-node">
+              <span>02</span>
+              <strong>Secure client</strong>
+              <p>контролируемое подключение</p>
+            </article>
+            <div class="flow-link" aria-hidden="true"></div>
+            <article class="flow-node">
+              <span>03</span>
+              <strong>Gateway role</strong>
+              <p>маршрутизация без деталей</p>
+            </article>
+            <div class="flow-link" aria-hidden="true"></div>
+            <article class="flow-node">
+              <span>04</span>
+              <strong>DNS protection</strong>
+              <p>защитный слой</p>
+            </article>
+            <div class="flow-link" aria-hidden="true"></div>
+            <article class="flow-node">
+              <span>05</span>
+              <strong>Monitoring</strong>
+              <p>health and signals</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="represents">
+      <section class="section" id="operations">
         <div class="wrap">
-          <div class="section-head reveal fade-up">
-            <p class="eyebrow">Project Overview</p>
-            <h2>Что представляет CloudSync Royale</h2>
-            <p>Это infrastructure showcase: коротко, визуально и без раскрытия чувствительных деталей.</p>
+          <div class="section-head reveal" data-reveal>
+            <p class="eyebrow">Secure network operations</p>
+            <h2>Что показывает проект</h2>
+            <p>
+              Не публичный сервис и не продажная страница. Это персональная инженерная работа:
+              собрать, обезопасить, наблюдать, документировать и не раскрыть лишнего.
+            </p>
           </div>
 
-          <div class="card-grid compact">
-            <article class="info-card reveal fade-up tilt-card glass-shine edge-flow"><span>01</span><h3>Личная инфраструктура</h3><p>Homelab как мини-система с ролями, состояниями и понятной логикой.</p></article>
-            <article class="info-card reveal fade-up tilt-card glass-shine edge-flow"><span>02</span><h3>VPN core concept</h3><p>Gateway-слой показан как архитектурная идея, без live-конфигов и внутренних путей.</p></article>
-            <article class="info-card reveal fade-up tilt-card glass-shine edge-flow"><span>03</span><h3>DNS-защита</h3><p>DNS Shield подчёркивает отдельный защитный слой и дисциплину сетевой гигиены.</p></article>
-            <article class="info-card reveal fade-up tilt-card glass-shine edge-flow"><span>04</span><h3>Мониторинг</h3><p>Healthchecks, статусы и визуальные сигналы превращают состояние системы в понятную картину.</p></article>
-            <article class="info-card reveal fade-up tilt-card glass-shine edge-flow"><span>05</span><h3>Бэкапы</h3><p>Backup readiness встроен в процесс до изменений, а не вспоминается после них.</p></article>
-            <article class="info-card reveal fade-up tilt-card glass-shine edge-flow"><span>06</span><h3>Rollback-first</h3><p>Каждое изменение мыслится через обратимый путь, проверку и спокойное восстановление.</p></article>
-            <article class="info-card reveal fade-up tilt-card glass-shine edge-flow"><span>07</span><h3>Документация</h3><p>Проект описан так, чтобы показать инженерную мысль и не вынести лишнего наружу.</p></article>
-            <article class="info-card reveal fade-up tilt-card glass-shine edge-flow"><span>08</span><h3>GitHub hygiene</h3><p>Публичная подача выглядит чисто, уверенно и безопасно для портфолио.</p></article>
+          <div class="card-grid">
+            <article class="feature-card reveal" data-reveal>
+              <span>01</span>
+              <h3>Security-first operations</h3>
+              <p>Изменения проходят через проверку, минимизацию риска, понятный план восстановления и чистое описание.</p>
+            </article>
+            <article class="feature-card reveal" data-reveal>
+              <span>02</span>
+              <h3>DNS protection layer</h3>
+              <p>Отдельный слой DNS-защиты помогает мыслить сеть как систему, а не набор случайных настроек.</p>
+            </article>
+            <article class="feature-card reveal" data-reveal>
+              <span>03</span>
+              <h3>Monitoring mindset</h3>
+              <p>Статусы, health-сигналы и понятная панель делают эксплуатацию спокойнее и предсказуемее.</p>
+            </article>
+            <article class="feature-card reveal" data-reveal>
+              <span>04</span>
+              <h3>Safe rollout practice</h3>
+              <p>Любое улучшение держится на простой дисциплине: backup, change, check, rollback path.</p>
+            </article>
+            <article class="feature-card reveal" data-reveal>
+              <span>05</span>
+              <h3>Availability-focused setup</h3>
+              <p>Приоритет на стабильность, понятные зависимости и поведение, которое легко проверить.</p>
+            </article>
+            <article class="feature-card reveal" data-reveal>
+              <span>06</span>
+              <h3>Public portfolio hygiene</h3>
+              <p>Сайт выглядит как polished showcase, но не показывает production-материалы и приватные следы.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="features">
-        <div class="wrap">
-          <div class="section-head reveal fade-up">
-            <p class="eyebrow">Feature Cards</p>
-            <h2>Премиальные акценты проекта</h2>
+      <section class="section proof-section">
+        <div class="wrap proof-grid">
+          <div class="section-head reveal" data-reveal>
+            <p class="eyebrow">Proof of work</p>
+            <h2>Подача проекта как зрелой инфраструктурной практики</h2>
+            <p>
+              Здесь важен не шумный эффект, а ощущение контроля: чистый визуал, аккуратный текст,
+              понятная модель, плавные состояния и отсутствие лишнего риска.
+            </p>
           </div>
-
-          <div class="card-grid feature-grid">
-            <article class="feature-card reveal slide-left tilt-card glass-shine edge-flow"><span>Stability</span><h3>Stability-first</h3><p>Статусы, проверки и предсказуемое состояние важнее хаотичных экспериментов.</p></article>
-            <article class="feature-card reveal fade-up tilt-card glass-shine edge-flow"><span>Speed</span><h3>Speed-focused</h3><p>Витрина показывает фокус на отзывчивость и чистую сетевую модель.</p></article>
-            <article class="feature-card reveal fade-up tilt-card glass-shine edge-flow"><span>DNS</span><h3>DNS protection layer</h3><p>Отдельный слой DNS Shield помогает мыслить проект как систему.</p></article>
-            <article class="feature-card reveal slide-right tilt-card glass-shine edge-flow"><span>Route</span><h3>Safe routing logic</h3><p>Логика маршрутизации показана концептуально, без внутренних production paths.</p></article>
-            <article class="feature-card reveal slide-left tilt-card glass-shine edge-flow"><span>Monitor</span><h3>Monitoring mindset</h3><p>Состояние проекта должно быть видно до того, как возникает проблема.</p></article>
-            <article class="feature-card reveal fade-up tilt-card glass-shine edge-flow"><span>Backup</span><h3>Backup readiness</h3><p>Восстановление планируется заранее, а не после неприятного сюрприза.</p></article>
-            <article class="feature-card reveal fade-up tilt-card glass-shine edge-flow"><span>Rollback</span><h3>Rollback discipline</h3><p>Каждое изменение думается через обратимый путь и проверяемый результат.</p></article>
-            <article class="feature-card reveal slide-right tilt-card glass-shine edge-flow"><span>Public</span><h3>Clean public presentation</h3><p>Проект можно показать эффектно и при этом не раскрывать чувствительные значения.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="console">
-        <div class="wrap console-grid">
-          <div class="section-head reveal slide-left">
-            <p class="eyebrow">Live-style Console</p>
-            <h2>Консоль как часть cinematic overview</h2>
-            <p>Строки оживают при входе блока во viewport и повторяются при возвращении вверх.</p>
-          </div>
-
-          <div class="terminal reveal slide-right tilt-card" aria-label="Public-safe console output">
-            <div class="terminal-top">
-              <span></span><span></span><span></span>
-              <b>royale-overview</b>
-            </div>
-            <div class="terminal-lines" id="terminal-lines">
-              <p data-line="healthcheck: stable"></p>
-              <p data-line="dns-shield: active"></p>
-              <p data-line="backup-guard: ready"></p>
-              <p data-line="public-view: protected"></p>
-              <p data-line="secrets-scan: clean"></p>
-              <p data-line="routing-layer: organized"></p>
-              <p data-line="monitoring: watching"></p>
-              <p data-line="status: online"></p>
-            </div>
+          <div class="timeline" aria-label="Этапы проекта">
+            <article class="timeline-item reveal" data-reveal><span>Stage 1</span><strong>Baseline</strong><p>порядок, минимальная предсказуемость, базовые правила</p></article>
+            <article class="timeline-item reveal" data-reveal><span>Stage 2</span><strong>Core network</strong><p>личная VPN-инфраструктура и разделение ролей</p></article>
+            <article class="timeline-item reveal" data-reveal><span>Stage 3</span><strong>DNS protection</strong><p>защитный слой для более чистой сетевой модели</p></article>
+            <article class="timeline-item reveal" data-reveal><span>Stage 4</span><strong>Monitoring</strong><p>сигналы состояния, health checks и диагностика</p></article>
+            <article class="timeline-item reveal" data-reveal><span>Stage 5</span><strong>Safe rollout</strong><p>резервная точка, проверка и понятный rollback path</p></article>
           </div>
         </div>
       </section>
 
-      <section class="section why-section">
-        <div class="wrap why-grid">
-          <div class="section-head reveal slide-left">
-            <p class="eyebrow">Why It Looks Serious</p>
-            <h2>Почему это выглядит как настоящий инженерный проект</h2>
+      <section class="section" id="safety">
+        <div class="wrap safety-grid">
+          <div class="security-note reveal" data-reveal>
+            <p class="eyebrow">Public safety</p>
+            <h2>Что точно не публикуется</h2>
+            <p>
+              На странице нет реальных IP, приватных доменов VPN, рабочих ссылок доступа, графических кодов доступа,
+              учётных данных, ключей, логов, customer data или внутренних operational-файлов.
+            </p>
           </div>
-          <div class="reason-stack reveal slide-right">
-            <p>Это не просто “включил VPN”.</p>
-            <p>Это мини-инфраструктура с ролями и состояниями.</p>
-            <p>Есть мониторинг и контроль ресурсов.</p>
-            <p>Есть бэкапы и безопасные откаты.</p>
-            <p>Есть публичное оформление без секретов.</p>
-            <p>Есть спокойный процесс: подготовка → изменение → проверка → фиксация результата.</p>
+          <div class="safe-list reveal" data-reveal aria-label="Безопасные публичные принципы">
+            <p><span>01</span>Только sanitized wording и placeholder-роли.</p>
+            <p><span>02</span>Никаких ссылок на подключение или конфигурации.</p>
+            <p><span>03</span>Production VPN, сервер и ops-часть не затрагиваются.</p>
+            <p><span>04</span>Внешних ссылок ровно две: Telegram и GitHub.</p>
           </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="wrap">
-          <div class="section-head reveal fade-up">
-            <p class="eyebrow">Build Story</p>
-            <h2>Timeline</h2>
-          </div>
-
-          <div class="timeline reveal timeline-reveal">
-            <article class="timeline-card reveal fade-up"><span>Stage 1</span><h3>Server baseline</h3><p>Базовый порядок и предсказуемое окружение.</p></article>
-            <article class="timeline-card reveal fade-up"><span>Stage 2</span><h3>VPN core</h3><p>Понятная роль gateway-слоя в homelab-модели.</p></article>
-            <article class="timeline-card reveal fade-up"><span>Stage 3</span><h3>DNS protection</h3><p>DNS Shield как отдельный защитный слой.</p></article>
-            <article class="timeline-card reveal fade-up"><span>Stage 4</span><h3>Monitoring</h3><p>Healthchecks, сигналы и наблюдаемость.</p></article>
-            <article class="timeline-card reveal fade-up"><span>Stage 5</span><h3>Backup guard</h3><p>Готовность к восстановлению до изменений.</p></article>
-            <article class="timeline-card reveal fade-up"><span>Stage 6</span><h3>GitHub portfolio</h3><p>Sanitized-документация для публичного профиля.</p></article>
-            <article class="timeline-card reveal fade-up"><span>Stage 7</span><h3>Public showcase</h3><p>Эффектная витрина без реальных production-значений.</p></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section final-section">
-        <div class="wrap final-card reveal glow-in">
-          <p class="eyebrow">Personal Cybersecurity / DevOps Homelab</p>
-          <h2>Built as a personal cybersecurity / DevOps homelab.</h2>
-          <p>
-            CloudSync Royale — визуальная презентация личного инфраструктурного проекта:
-            безопасность, стабильность, DNS-защита, мониторинг и аккуратный подход к изменениям.
-          </p>
-          <a class="btn primary" href="#hero">Наверх</a>
         </div>
       </section>
 
       <section class="section contact-section" id="contact">
-        <div class="wrap">
-          <div class="contact-card reveal rotate-soft glow-in tilt-card glass-shine edge-flow">
-            <p class="eyebrow">Project Contact</p>
-            <h2>Вопросы по проекту</h2>
-            <p>Для связи по CloudSync Royale есть отдельный Telegram-профиль, а sanitized-версия проекта и документация доступны на GitHub.</p>
-            <div class="contact-links" aria-label="Внешние публичные ссылки проекта">
-              <a class="contact-link primary-link" href="https://t.me/cloudsyncvpnroyale" target="_blank" rel="noopener noreferrer">
-                <span>Direct channel</span>
-                <strong>Написать в Telegram</strong>
-                <small>@cloudsyncvpnroyale</small>
-              </a>
-              <a class="contact-link repo-link" href="https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab" target="_blank" rel="noopener noreferrer">
-                <span>Public source</span>
-                <strong>Открыть GitHub</strong>
-                <small>sanitized project docs</small>
-              </a>
-            </div>
+        <div class="wrap contact-card reveal" data-reveal>
+          <p class="eyebrow">Contact and source</p>
+          <h2>CloudSync Royale можно показать публично</h2>
+          <p>
+            Витрина оставляет только безопасный контакт и публичный репозиторий. Всё остальное остается
+            внутри приватной operational-зоны проекта.
+          </p>
+          <div class="contact-actions" aria-label="Разрешённые внешние ссылки">
+            <a class="contact-button telegram" href="https://t.me/cloudsyncvpnroyale" target="_blank" rel="noopener noreferrer">
+              <span>Telegram</span>
+              <strong>Questions / contact</strong>
+            </a>
+            <a class="contact-button github" href="https://github.com/Fedorov-Daniil/cloudsync-vpn-security-lab" target="_blank" rel="noopener noreferrer">
+              <span>GitHub</span>
+              <strong>Public project</strong>
+            </a>
           </div>
-        </div>
-      </section>
-
-      <section class="section safety-section" id="safety">
-        <div class="wrap">
-          <div class="safety-card reveal blur-in">
-            <p>Публичная витрина проекта. Реальные IP, домены, ключи, конфигурационные ссылки, данные пользователей и production-логи не публикуются.</p>
-          </div>
+          <a class="button ghost back-top" href="#hero"><span>Вернуться наверх</span></a>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>CloudSync Royale · Infrastructure Showcase · sanitized public view</p>
+      <p>CloudSync Royale · private infrastructure showcase · public-safe view</p>
     </footer>
   </body>
 </html>
