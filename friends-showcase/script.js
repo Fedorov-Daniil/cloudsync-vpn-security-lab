@@ -12,8 +12,51 @@
   const counters = Array.from(document.querySelectorAll("[data-count-to]"));
   const graph = document.getElementById("traffic-graph");
   const parallaxItems = Array.from(document.querySelectorAll("[data-depth]"));
+  const internalLinks = Array.from(document.querySelectorAll('a[href^="#"]'));
+  const scrollButtons = Array.from(document.querySelectorAll("[data-scroll-target]"));
+  const motionToggle = document.querySelector("[data-motion-toggle]");
+  const magneticSelector = ".button, .contact-button";
+  const cardSelector = ".metric, .signal-card, .cockpit-side article, .feature-card, .flow-node, .timeline-item, .safe-list p, .contact-card, .terminal";
 
   document.body.classList.add("is-ready");
+
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const lerp = (from, to, amount) => from + (to - from) * amount;
+
+  const scrollToSection = (targetId) => {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    target.scrollIntoView({
+      block: "start",
+      behavior: prefersReducedMotion ? "auto" : "smooth"
+    });
+  };
+
+  internalLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      if (!href || href === "#") {
+        event.preventDefault();
+        return;
+      }
+
+      const targetId = href.slice(1);
+      if (document.getElementById(targetId)) {
+        event.preventDefault();
+        scrollToSection(targetId);
+      }
+    });
+  });
+
+  scrollButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      scrollToSection(button.dataset.scrollTarget || "");
+    });
+  });
 
   const setScrollState = () => {
     const max = Math.max(1, doc.scrollHeight - window.innerHeight);
@@ -218,42 +261,197 @@
     }
   }
 
-  const setPointerVars = (event) => {
-    const target = event.target.closest(".button, .contact-button");
-    if (!target) return;
-    const rect = target.getBoundingClientRect();
-    target.style.setProperty("--x", `${event.clientX - rect.left}px`);
-    target.style.setProperty("--y", `${event.clientY - rect.top}px`);
+  const parallax = {
+    currentX: 0,
+    currentY: 0,
+    targetX: 0,
+    targetY: 0,
+    frame: 0
   };
-  document.addEventListener("pointermove", setPointerVars, { passive: true });
 
-  let parallaxFrame = 0;
-  let pointerX = 0;
-  let pointerY = 0;
-  const updateParallax = () => {
-    parallaxFrame = 0;
-    if (prefersReducedMotion) return;
-    const x = pointerX / window.innerWidth - 0.5;
-    const y = pointerY / window.innerHeight - 0.5;
-    doc.style.setProperty("--pointer-x", x.toFixed(4));
-    doc.style.setProperty("--pointer-y", y.toFixed(4));
+  const setParallaxVars = (x, y) => {
+    doc.style.setProperty("--parallax-x", x.toFixed(4));
+    doc.style.setProperty("--parallax-y", y.toFixed(4));
+    doc.style.setProperty("--parallax-x-px", `${(x * 46).toFixed(2)}px`);
+    doc.style.setProperty("--parallax-y-px", `${(y * 34).toFixed(2)}px`);
+    doc.style.setProperty("--parallax-aura-x", `${(x * 38).toFixed(2)}px`);
+    doc.style.setProperty("--parallax-aura-y", `${(y * 32).toFixed(2)}px`);
+    doc.style.setProperty("--parallax-ribbon-x", `${(x * 30).toFixed(2)}px`);
+    doc.style.setProperty("--parallax-ribbon-y", `${(y * 18).toFixed(2)}px`);
+  };
+
+  const resetParallax = () => {
+    if (parallax.frame) window.cancelAnimationFrame(parallax.frame);
+    parallax.currentX = 0;
+    parallax.currentY = 0;
+    parallax.targetX = 0;
+    parallax.targetY = 0;
+    parallax.frame = 0;
+    setParallaxVars(0, 0);
+    doc.style.setProperty("--pointer-x", "0");
+    doc.style.setProperty("--pointer-y", "0");
+    doc.style.setProperty("--tilt-x", "0");
+    doc.style.setProperty("--tilt-y", "0");
     parallaxItems.forEach((item) => {
-      const depth = Number(item.dataset.depth || 0.03);
-      item.style.transform = `translate3d(${x * depth * 180}px, ${y * depth * 180}px, 0)`;
+      item.style.transform = "";
     });
   };
 
-  if (parallaxItems.length) {
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        pointerX = event.clientX;
-        pointerY = event.clientY;
-        if (!parallaxFrame) parallaxFrame = window.requestAnimationFrame(updateParallax);
-      },
-      { passive: true }
-    );
+  const renderParallax = () => {
+    parallax.frame = 0;
+    if (prefersReducedMotion) {
+      resetParallax();
+      return;
+    }
+
+    parallax.currentX = lerp(parallax.currentX, parallax.targetX, 0.12);
+    parallax.currentY = lerp(parallax.currentY, parallax.targetY, 0.12);
+    setParallaxVars(parallax.currentX, parallax.currentY);
+
+    parallaxItems.forEach((item) => {
+      const depth = Number(item.dataset.depth || 0.03);
+      item.style.transform = `translate3d(${(parallax.currentX * depth * 260).toFixed(2)}px, ${(parallax.currentY * depth * 220).toFixed(2)}px, 0)`;
+    });
+
+    const settled =
+      Math.abs(parallax.currentX - parallax.targetX) < 0.001 &&
+      Math.abs(parallax.currentY - parallax.targetY) < 0.001;
+    if (!settled) parallax.frame = window.requestAnimationFrame(renderParallax);
+  };
+
+  const scheduleParallax = (x, y) => {
+    if (prefersReducedMotion) return;
+    parallax.targetX = clamp(x, -0.5, 0.5);
+    parallax.targetY = clamp(y, -0.5, 0.5);
+    if (!parallax.frame) parallax.frame = window.requestAnimationFrame(renderParallax);
+  };
+
+  let activeCard = null;
+  let cardPointerEvent = null;
+  let cardFrame = 0;
+
+  const resetCardTilt = (card) => {
+    if (!card) return;
+    card.style.setProperty("--card-tilt-x", "0deg");
+    card.style.setProperty("--card-tilt-y", "0deg");
+    card.style.setProperty("--card-glow-x", "50%");
+    card.style.setProperty("--card-glow-y", "50%");
+  };
+
+  const updateCardTilt = () => {
+    cardFrame = 0;
+    if (!activeCard || !cardPointerEvent || prefersReducedMotion) return;
+    const rect = activeCard.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const x = clamp((cardPointerEvent.clientX - rect.left) / rect.width - 0.5, -0.5, 0.5);
+    const y = clamp((cardPointerEvent.clientY - rect.top) / rect.height - 0.5, -0.5, 0.5);
+    activeCard.style.setProperty("--card-tilt-x", `${(x * 6).toFixed(2)}deg`);
+    activeCard.style.setProperty("--card-tilt-y", `${(-y * 5).toFixed(2)}deg`);
+    activeCard.style.setProperty("--card-glow-x", `${((x + 0.5) * 100).toFixed(1)}%`);
+    activeCard.style.setProperty("--card-glow-y", `${((y + 0.5) * 100).toFixed(1)}%`);
+  };
+
+  const setPointerMotion = (event) => {
+    const magneticTarget = event.target.closest(magneticSelector);
+    if (magneticTarget) {
+      const rect = magneticTarget.getBoundingClientRect();
+      magneticTarget.style.setProperty("--x", `${event.clientX - rect.left}px`);
+      magneticTarget.style.setProperty("--y", `${event.clientY - rect.top}px`);
+    }
+
+    if (event.pointerType !== "touch") {
+      const pointerX = event.clientX / Math.max(1, window.innerWidth) - 0.5;
+      const pointerY = event.clientY / Math.max(1, window.innerHeight) - 0.5;
+      doc.style.setProperty("--pointer-x", pointerX.toFixed(4));
+      doc.style.setProperty("--pointer-y", pointerY.toFixed(4));
+      scheduleParallax(pointerX, pointerY);
+    }
+
+    const card = event.target.closest(cardSelector);
+    if (card && event.pointerType !== "touch") {
+      activeCard = card;
+      cardPointerEvent = event;
+      if (!cardFrame) cardFrame = window.requestAnimationFrame(updateCardTilt);
+    }
+  };
+
+  const resetPointerMotion = (event) => {
+    const card = event.target.closest(cardSelector);
+    if (!card || (event.relatedTarget && card.contains(event.relatedTarget))) return;
+    resetCardTilt(card);
+    if (activeCard === card) {
+      activeCard = null;
+      cardPointerEvent = null;
+    }
+  };
+
+  document.addEventListener("pointermove", setPointerMotion, { passive: true });
+  document.addEventListener("pointerout", resetPointerMotion, { passive: true });
+
+  let orientationActive = false;
+  let motionToggleReady = false;
+
+  const stopOrientation = () => {
+    if (!orientationActive) return;
+    window.removeEventListener("deviceorientation", handleOrientation);
+    orientationActive = false;
+    doc.classList.remove("motion-enabled");
+  };
+
+  function handleOrientation(event) {
+    if (prefersReducedMotion) return;
+    const tiltX = clamp(Number(event.gamma || 0) / 34, -0.5, 0.5);
+    const tiltY = clamp(Number(event.beta || 0) / 46, -0.5, 0.5);
+    doc.style.setProperty("--tilt-x", tiltX.toFixed(4));
+    doc.style.setProperty("--tilt-y", tiltY.toFixed(4));
+    scheduleParallax(tiltX, tiltY);
   }
+
+  const startOrientation = () => {
+    if (orientationActive || prefersReducedMotion || !("DeviceOrientationEvent" in window)) return;
+    window.addEventListener("deviceorientation", handleOrientation, { passive: true });
+    orientationActive = true;
+    doc.classList.add("motion-enabled");
+    if (motionToggle) {
+      motionToggle.hidden = true;
+      motionToggle.setAttribute("aria-pressed", "true");
+    }
+  };
+
+  const setupOrientationEnhancement = () => {
+    if (!motionToggle || motionToggleReady || prefersReducedMotion || !("DeviceOrientationEvent" in window)) return;
+    motionToggleReady = true;
+
+    if (typeof DeviceOrientationEvent.requestPermission === "function") {
+      motionToggle.hidden = false;
+      motionToggle.setAttribute("aria-pressed", "false");
+      motionToggle.addEventListener("click", async () => {
+        motionToggle.classList.add("is-pending");
+        try {
+          const result = await DeviceOrientationEvent.requestPermission();
+          if (result === "granted") {
+            startOrientation();
+          } else {
+            motionToggle.querySelector("span").textContent = "Motion effects недоступны";
+          }
+        } catch (error) {
+          motionToggle.querySelector("span").textContent = "Motion effects недоступны";
+        } finally {
+          motionToggle.classList.remove("is-pending");
+          if (!orientationActive) {
+            window.setTimeout(() => {
+              motionToggle.hidden = true;
+            }, 1400);
+          }
+        }
+      });
+      return;
+    }
+
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      startOrientation();
+    }
+  };
 
   const canvas = document.getElementById("network-canvas");
   const ctx = canvas ? canvas.getContext("2d") : null;
@@ -346,10 +544,6 @@
     drawCanvas();
     if (!prefersReducedMotion) startCanvas();
 
-    window.addEventListener("resize", () => {
-      resizeCanvas();
-      updateBars();
-    });
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) stopCanvas();
       else startCanvas();
@@ -359,11 +553,15 @@
   const applyMotionPreference = () => {
     prefersReducedMotion = motionQuery.matches;
     if (prefersReducedMotion) {
+      stopOrientation();
+      resetParallax();
+      if (motionToggle) motionToggle.hidden = true;
       stopGraph();
       stopCanvas();
       terminals.forEach(playTerminal);
       counters.forEach(animateCounter);
     } else {
+      setupOrientationEnhancement();
       startGraph();
       startCanvas();
     }
@@ -375,7 +573,21 @@
     motionQuery.addListener(applyMotionPreference);
   }
 
+  let resizeFrame = 0;
+  const onResize = () => {
+    if (resizeFrame) return;
+    resizeFrame = window.requestAnimationFrame(() => {
+      resizeFrame = 0;
+      resizeCanvas();
+      updateBars();
+      setScrollState();
+    });
+  };
+
+  setupOrientationEnhancement();
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", setScrollState, { passive: true });
+  window.addEventListener("resize", onResize, { passive: true });
+  window.addEventListener("orientationchange", onResize, { passive: true });
+  window.addEventListener("pageshow", setScrollState, { passive: true });
   setScrollState();
 })();
